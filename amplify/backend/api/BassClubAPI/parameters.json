@@ -1,0 +1,11 @@
+{
+  "AppSyncApiName": "BassClubAPI",
+  "DynamoDBBillingMode": "PAY_PER_REQUEST",
+  "DynamoDBEnableServerSideEncryption": false,
+  "AuthCognitoUserPoolId": {
+    "Fn::GetAtt": [
+      "authbassclubcentrald4ee1a60",
+      "Outputs.UserPoolId"
+    ]
+  }
+}

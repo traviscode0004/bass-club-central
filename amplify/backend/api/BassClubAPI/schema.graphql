@@ -1,23 +1,37 @@
-type Club @model @auth(rules: [{ allow: owner }, { allow: public, operations: [read] }]) {
+type User @model {
   id: ID!
-  name: String!
-  description: String
-  location: String
-  tournaments: [Tournament] @hasMany(fields: ["id"])  # Club can have many tournaments
+  username: String!
+  email: String!
+  clubs: [Club] @hasMany
 }
 
-type Tournament @model @auth(rules: [{ allow: owner }, { allow: public, operations: [read] }]) {
+type Club @model {
+  id: ID!
+  name: String!
+  userID: ID!
+  tournaments: [Tournament] @hasMany
+}
+
+type Tournament @model {
   id: ID!
   name: String!
   date: AWSDate!
   location: String!
-  clubID: ID! @belongsTo(fields: ["clubID"])  # Each tournament belongs to one club
+  clubID: ID!
+  userID: ID!
 }
 
-type User @model @auth(rules: [{ allow: owner }, { allow: public, operations: [read] }]) {
-  id: ID!
-  username: String!
-  email: String!
-  clubs: [Club] @hasMany(fields: ["id"])  #    User can be associated with many clubs
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
