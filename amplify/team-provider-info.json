@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-bassclubcentral-dev-81119-authRole",
+      "UnauthRoleArn": "arn:aws:iam::528513475158:role/amplify-bassclubcentral-dev-81119-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::528513475158:role/amplify-bassclubcentral-dev-81119-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-bassclubcentral-dev-81119-deployment",
+      "UnauthRoleName": "amplify-bassclubcentral-dev-81119-unauthRole",
+      "StackName": "amplify-bassclubcentral-dev-81119",
+      "StackId": "arn:aws:cloudformation:us-east-1:528513475158:stack/amplify-bassclubcentral-dev-81119/d3aee2c0-8bda-11ef-b32d-0eaf46a0829f",
+      "AmplifyAppId": "d21n3wqz8050fs"
+    },
+    "categories": {
+      "auth": {
+        "bassclubcentrald4ee1a60": {}
+      }
+    }
+  }
+}
