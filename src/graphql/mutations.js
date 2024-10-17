@@ -67,13 +67,10 @@ export const createClub = /* GraphQL */ `
       id
       name
       userID
-      tournaments {
-        nextToken
-        __typename
-      }
+      userClubsId
       createdAt
       updatedAt
-      userClubsId
+      owner
       __typename
     }
   }
@@ -87,13 +84,10 @@ export const updateClub = /* GraphQL */ `
       id
       name
       userID
-      tournaments {
-        nextToken
-        __typename
-      }
+      userClubsId
       createdAt
       updatedAt
-      userClubsId
+      owner
       __typename
     }
   }
@@ -107,13 +101,10 @@ export const deleteClub = /* GraphQL */ `
       id
       name
       userID
-      tournaments {
-        nextToken
-        __typename
-      }
+      userClubsId
       createdAt
       updatedAt
-      userClubsId
+      owner
       __typename
     }
   }
@@ -132,7 +123,6 @@ export const createTournament = /* GraphQL */ `
       userID
       createdAt
       updatedAt
-      clubTournamentsId
       __typename
     }
   }
@@ -151,7 +141,6 @@ export const updateTournament = /* GraphQL */ `
       userID
       createdAt
       updatedAt
-      clubTournamentsId
       __typename
     }
   }
@@ -170,7 +159,6 @@ export const deleteTournament = /* GraphQL */ `
       userID
       createdAt
       updatedAt
-      clubTournamentsId
       __typename
     }
   }

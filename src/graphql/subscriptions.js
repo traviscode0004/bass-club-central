@@ -50,52 +50,52 @@ export const onDeleteUser = /* GraphQL */ `
   }
 `;
 export const onCreateClub = /* GraphQL */ `
-  subscription OnCreateClub($filter: ModelSubscriptionClubFilterInput) {
-    onCreateClub(filter: $filter) {
+  subscription OnCreateClub(
+    $filter: ModelSubscriptionClubFilterInput
+    $owner: String
+  ) {
+    onCreateClub(filter: $filter, owner: $owner) {
       id
       name
       userID
-      tournaments {
-        nextToken
-        __typename
-      }
+      userClubsId
       createdAt
       updatedAt
-      userClubsId
+      owner
       __typename
     }
   }
 `;
 export const onUpdateClub = /* GraphQL */ `
-  subscription OnUpdateClub($filter: ModelSubscriptionClubFilterInput) {
-    onUpdateClub(filter: $filter) {
+  subscription OnUpdateClub(
+    $filter: ModelSubscriptionClubFilterInput
+    $owner: String
+  ) {
+    onUpdateClub(filter: $filter, owner: $owner) {
       id
       name
       userID
-      tournaments {
-        nextToken
-        __typename
-      }
+      userClubsId
       createdAt
       updatedAt
-      userClubsId
+      owner
       __typename
     }
   }
 `;
 export const onDeleteClub = /* GraphQL */ `
-  subscription OnDeleteClub($filter: ModelSubscriptionClubFilterInput) {
-    onDeleteClub(filter: $filter) {
+  subscription OnDeleteClub(
+    $filter: ModelSubscriptionClubFilterInput
+    $owner: String
+  ) {
+    onDeleteClub(filter: $filter, owner: $owner) {
       id
       name
       userID
-      tournaments {
-        nextToken
-        __typename
-      }
+      userClubsId
       createdAt
       updatedAt
-      userClubsId
+      owner
       __typename
     }
   }
@@ -113,7 +113,6 @@ export const onCreateTournament = /* GraphQL */ `
       userID
       createdAt
       updatedAt
-      clubTournamentsId
       __typename
     }
   }
@@ -131,7 +130,6 @@ export const onUpdateTournament = /* GraphQL */ `
       userID
       createdAt
       updatedAt
-      clubTournamentsId
       __typename
     }
   }
@@ -149,7 +147,6 @@ export const onDeleteTournament = /* GraphQL */ `
       userID
       createdAt
       updatedAt
-      clubTournamentsId
       __typename
     }
   }

@@ -43,13 +43,10 @@ export const getClub = /* GraphQL */ `
       id
       name
       userID
-      tournaments {
-        nextToken
-        __typename
-      }
+      userClubsId
       createdAt
       updatedAt
-      userClubsId
+      owner
       __typename
     }
   }
@@ -65,9 +62,10 @@ export const listClubs = /* GraphQL */ `
         id
         name
         userID
+        userClubsId
         createdAt
         updatedAt
-        userClubsId
+        owner
         __typename
       }
       nextToken
@@ -86,7 +84,6 @@ export const getTournament = /* GraphQL */ `
       userID
       createdAt
       updatedAt
-      clubTournamentsId
       __typename
     }
   }
@@ -107,7 +104,6 @@ export const listTournaments = /* GraphQL */ `
         userID
         createdAt
         updatedAt
-        clubTournamentsId
         __typename
       }
       nextToken

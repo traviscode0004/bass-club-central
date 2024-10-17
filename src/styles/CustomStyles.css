@@ -1,0 +1,12 @@
+/* src/CustomStyles.css */
+
+.custom-jumbotron {
+    background-image: url('/path/to/your/image.jpg');
+    background-size: cover;
+    color: white;
+  }
+  
+  .navbar-brand {
+    font-weight: bold;
+  }
+  

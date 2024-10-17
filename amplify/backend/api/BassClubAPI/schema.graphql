@@ -5,12 +5,18 @@ type User @model {
   clubs: [Club] @hasMany
 }
 
-type Club @model {
+type Club @model
+@auth(rules: [
+  { allow: owner },  # Allow owners to manage their own clubs
+  { allow: groups, groups: ["Admin"] },  # Allow Admin group to manage clubs
+  { allow: private, operations: [create, update, delete, read] }  # Allow authenticated users to perform these operations
+]) {
   id: ID!
   name: String!
   userID: ID!
-  tournaments: [Tournament] @hasMany
+  userClubsId: ID
 }
+
 
 type Tournament @model {
   id: ID!
