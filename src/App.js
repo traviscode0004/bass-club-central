@@ -3,7 +3,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 // styles
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './CustomStyles.css';
+// import './CustomStyles.css';
 // components
 import Header from './components/Header.jsx';
 import Footer from './components/Footer.jsx'
