@@ -2,7 +2,7 @@ type User @model {
   id: ID!
   username: String!
   email: String!
-  clubs: [Club] @hasMany
+  clubs: [Club] @hasMany(indexName: "byUser", fields: ["id"])
 }
 
 type Club @model
@@ -13,19 +13,75 @@ type Club @model
 ]) {
   id: ID!
   name: String!
-  userID: ID!
-  userClubsId: ID
+  userID: ID! @index(name: "byUser", sortKeyFields: ["id"])
+  tournaments: [Tournament] @hasMany(indexName: "byClub", fields: ["id"])
 }
 
+type Lake @model {
+  id: ID!
+  name: String!
+  state: String!
+  description: String
+
+  boatRamps: [BoatRamp] @hasMany(indexName: "byLakeBoatRamp", fields: ["id"])
+  tournamentLakes: [TournamentLake] @hasMany(indexName: "byLake", fields: ["id"])
+}
+
+type BoatRamp @model {
+  id: ID!
+  name: String!
+  location: String!
+
+  lakeID: ID! @index(name: "byLakeBoatRamp")
+  lake: Lake @belongsTo(fields: ["lakeID"])
+
+  tournamentLakeBoatRamps: [TournamentLakeBoatRamp] @hasMany(indexName: "byBoatRamp", fields: ["id"])
+}
 
 type Tournament @model {
   id: ID!
   name: String!
   date: AWSDate!
   location: String!
-  clubID: ID!
-  userID: ID!
+
+  # Club Association
+  clubID: ID! @index(name: "byClub")
+  club: Club @belongsTo(fields: ["clubID"])
+  clubName: String!  # Denormalized club name
+
+  userID: ID!  # ID of the user who created the tournament
+
+  tournamentLakes: [TournamentLake] @hasMany(indexName: "byTournament", fields: ["id"])
 }
+
+type TournamentLake @model {
+  id: ID!
+
+  tournamentID: ID! @index(name: "byTournament", sortKeyFields: ["id"])
+  tournament: Tournament @belongsTo(fields: ["tournamentID"])
+
+  lakeID: ID! @index(name: "byLake", sortKeyFields: ["id"])
+  lake: Lake @belongsTo(fields: ["lakeID"])
+
+  allowAllRamps: Boolean!
+
+  tournamentLakeBoatRamps: [TournamentLakeBoatRamp] @hasMany(indexName: "byTournamentLake", fields: ["id"])
+}
+
+type TournamentLakeBoatRamp @model {
+  id: ID!
+
+  tournamentLakeID: ID! @index(name: "byTournamentLake", sortKeyFields: ["id"])
+  tournamentLake: TournamentLake @belongsTo(fields: ["tournamentLakeID"])
+
+  boatRampID: ID! @index(name: "byBoatRamp", sortKeyFields: ["id"])
+  boatRamp: BoatRamp @belongsTo(fields: ["boatRampID"])
+}
+
+
+
+
+
 
 
 

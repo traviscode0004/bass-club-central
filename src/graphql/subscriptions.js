@@ -58,7 +58,10 @@ export const onCreateClub = /* GraphQL */ `
       id
       name
       userID
-      userClubsId
+      tournaments {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       owner
@@ -75,7 +78,10 @@ export const onUpdateClub = /* GraphQL */ `
       id
       name
       userID
-      userClubsId
+      tournaments {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       owner
@@ -92,10 +98,154 @@ export const onDeleteClub = /* GraphQL */ `
       id
       name
       userID
-      userClubsId
+      tournaments {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       owner
+      __typename
+    }
+  }
+`;
+export const onCreateLake = /* GraphQL */ `
+  subscription OnCreateLake($filter: ModelSubscriptionLakeFilterInput) {
+    onCreateLake(filter: $filter) {
+      id
+      name
+      state
+      description
+      boatRamps {
+        nextToken
+        __typename
+      }
+      tournamentLakes {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onUpdateLake = /* GraphQL */ `
+  subscription OnUpdateLake($filter: ModelSubscriptionLakeFilterInput) {
+    onUpdateLake(filter: $filter) {
+      id
+      name
+      state
+      description
+      boatRamps {
+        nextToken
+        __typename
+      }
+      tournamentLakes {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onDeleteLake = /* GraphQL */ `
+  subscription OnDeleteLake($filter: ModelSubscriptionLakeFilterInput) {
+    onDeleteLake(filter: $filter) {
+      id
+      name
+      state
+      description
+      boatRamps {
+        nextToken
+        __typename
+      }
+      tournamentLakes {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onCreateBoatRamp = /* GraphQL */ `
+  subscription OnCreateBoatRamp($filter: ModelSubscriptionBoatRampFilterInput) {
+    onCreateBoatRamp(filter: $filter) {
+      id
+      name
+      location
+      lakeID
+      lake {
+        id
+        name
+        state
+        description
+        createdAt
+        updatedAt
+        __typename
+      }
+      tournamentLakeBoatRamps {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onUpdateBoatRamp = /* GraphQL */ `
+  subscription OnUpdateBoatRamp($filter: ModelSubscriptionBoatRampFilterInput) {
+    onUpdateBoatRamp(filter: $filter) {
+      id
+      name
+      location
+      lakeID
+      lake {
+        id
+        name
+        state
+        description
+        createdAt
+        updatedAt
+        __typename
+      }
+      tournamentLakeBoatRamps {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onDeleteBoatRamp = /* GraphQL */ `
+  subscription OnDeleteBoatRamp($filter: ModelSubscriptionBoatRampFilterInput) {
+    onDeleteBoatRamp(filter: $filter) {
+      id
+      name
+      location
+      lakeID
+      lake {
+        id
+        name
+        state
+        description
+        createdAt
+        updatedAt
+        __typename
+      }
+      tournamentLakeBoatRamps {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
       __typename
     }
   }
@@ -110,7 +260,21 @@ export const onCreateTournament = /* GraphQL */ `
       date
       location
       clubID
+      club {
+        id
+        name
+        userID
+        createdAt
+        updatedAt
+        owner
+        __typename
+      }
+      clubName
       userID
+      tournamentLakes {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -127,7 +291,21 @@ export const onUpdateTournament = /* GraphQL */ `
       date
       location
       clubID
+      club {
+        id
+        name
+        userID
+        createdAt
+        updatedAt
+        owner
+        __typename
+      }
+      clubName
       userID
+      tournamentLakes {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -144,7 +322,237 @@ export const onDeleteTournament = /* GraphQL */ `
       date
       location
       clubID
+      club {
+        id
+        name
+        userID
+        createdAt
+        updatedAt
+        owner
+        __typename
+      }
+      clubName
       userID
+      tournamentLakes {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onCreateTournamentLake = /* GraphQL */ `
+  subscription OnCreateTournamentLake(
+    $filter: ModelSubscriptionTournamentLakeFilterInput
+  ) {
+    onCreateTournamentLake(filter: $filter) {
+      id
+      tournamentID
+      tournament {
+        id
+        name
+        date
+        location
+        clubID
+        clubName
+        userID
+        createdAt
+        updatedAt
+        __typename
+      }
+      lakeID
+      lake {
+        id
+        name
+        state
+        description
+        createdAt
+        updatedAt
+        __typename
+      }
+      allowAllRamps
+      tournamentLakeBoatRamps {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onUpdateTournamentLake = /* GraphQL */ `
+  subscription OnUpdateTournamentLake(
+    $filter: ModelSubscriptionTournamentLakeFilterInput
+  ) {
+    onUpdateTournamentLake(filter: $filter) {
+      id
+      tournamentID
+      tournament {
+        id
+        name
+        date
+        location
+        clubID
+        clubName
+        userID
+        createdAt
+        updatedAt
+        __typename
+      }
+      lakeID
+      lake {
+        id
+        name
+        state
+        description
+        createdAt
+        updatedAt
+        __typename
+      }
+      allowAllRamps
+      tournamentLakeBoatRamps {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onDeleteTournamentLake = /* GraphQL */ `
+  subscription OnDeleteTournamentLake(
+    $filter: ModelSubscriptionTournamentLakeFilterInput
+  ) {
+    onDeleteTournamentLake(filter: $filter) {
+      id
+      tournamentID
+      tournament {
+        id
+        name
+        date
+        location
+        clubID
+        clubName
+        userID
+        createdAt
+        updatedAt
+        __typename
+      }
+      lakeID
+      lake {
+        id
+        name
+        state
+        description
+        createdAt
+        updatedAt
+        __typename
+      }
+      allowAllRamps
+      tournamentLakeBoatRamps {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onCreateTournamentLakeBoatRamp = /* GraphQL */ `
+  subscription OnCreateTournamentLakeBoatRamp(
+    $filter: ModelSubscriptionTournamentLakeBoatRampFilterInput
+  ) {
+    onCreateTournamentLakeBoatRamp(filter: $filter) {
+      id
+      tournamentLakeID
+      tournamentLake {
+        id
+        tournamentID
+        lakeID
+        allowAllRamps
+        createdAt
+        updatedAt
+        __typename
+      }
+      boatRampID
+      boatRamp {
+        id
+        name
+        location
+        lakeID
+        createdAt
+        updatedAt
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onUpdateTournamentLakeBoatRamp = /* GraphQL */ `
+  subscription OnUpdateTournamentLakeBoatRamp(
+    $filter: ModelSubscriptionTournamentLakeBoatRampFilterInput
+  ) {
+    onUpdateTournamentLakeBoatRamp(filter: $filter) {
+      id
+      tournamentLakeID
+      tournamentLake {
+        id
+        tournamentID
+        lakeID
+        allowAllRamps
+        createdAt
+        updatedAt
+        __typename
+      }
+      boatRampID
+      boatRamp {
+        id
+        name
+        location
+        lakeID
+        createdAt
+        updatedAt
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const onDeleteTournamentLakeBoatRamp = /* GraphQL */ `
+  subscription OnDeleteTournamentLakeBoatRamp(
+    $filter: ModelSubscriptionTournamentLakeBoatRampFilterInput
+  ) {
+    onDeleteTournamentLakeBoatRamp(filter: $filter) {
+      id
+      tournamentLakeID
+      tournamentLake {
+        id
+        tournamentID
+        lakeID
+        allowAllRamps
+        createdAt
+        updatedAt
+        __typename
+      }
+      boatRampID
+      boatRamp {
+        id
+        name
+        location
+        lakeID
+        createdAt
+        updatedAt
+        __typename
+      }
       createdAt
       updatedAt
       __typename

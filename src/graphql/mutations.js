@@ -67,7 +67,10 @@ export const createClub = /* GraphQL */ `
       id
       name
       userID
-      userClubsId
+      tournaments {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       owner
@@ -84,7 +87,10 @@ export const updateClub = /* GraphQL */ `
       id
       name
       userID
-      userClubsId
+      tournaments {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       owner
@@ -101,10 +107,172 @@ export const deleteClub = /* GraphQL */ `
       id
       name
       userID
-      userClubsId
+      tournaments {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       owner
+      __typename
+    }
+  }
+`;
+export const createLake = /* GraphQL */ `
+  mutation CreateLake(
+    $input: CreateLakeInput!
+    $condition: ModelLakeConditionInput
+  ) {
+    createLake(input: $input, condition: $condition) {
+      id
+      name
+      state
+      description
+      boatRamps {
+        nextToken
+        __typename
+      }
+      tournamentLakes {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const updateLake = /* GraphQL */ `
+  mutation UpdateLake(
+    $input: UpdateLakeInput!
+    $condition: ModelLakeConditionInput
+  ) {
+    updateLake(input: $input, condition: $condition) {
+      id
+      name
+      state
+      description
+      boatRamps {
+        nextToken
+        __typename
+      }
+      tournamentLakes {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const deleteLake = /* GraphQL */ `
+  mutation DeleteLake(
+    $input: DeleteLakeInput!
+    $condition: ModelLakeConditionInput
+  ) {
+    deleteLake(input: $input, condition: $condition) {
+      id
+      name
+      state
+      description
+      boatRamps {
+        nextToken
+        __typename
+      }
+      tournamentLakes {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const createBoatRamp = /* GraphQL */ `
+  mutation CreateBoatRamp(
+    $input: CreateBoatRampInput!
+    $condition: ModelBoatRampConditionInput
+  ) {
+    createBoatRamp(input: $input, condition: $condition) {
+      id
+      name
+      location
+      lakeID
+      lake {
+        id
+        name
+        state
+        description
+        createdAt
+        updatedAt
+        __typename
+      }
+      tournamentLakeBoatRamps {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const updateBoatRamp = /* GraphQL */ `
+  mutation UpdateBoatRamp(
+    $input: UpdateBoatRampInput!
+    $condition: ModelBoatRampConditionInput
+  ) {
+    updateBoatRamp(input: $input, condition: $condition) {
+      id
+      name
+      location
+      lakeID
+      lake {
+        id
+        name
+        state
+        description
+        createdAt
+        updatedAt
+        __typename
+      }
+      tournamentLakeBoatRamps {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const deleteBoatRamp = /* GraphQL */ `
+  mutation DeleteBoatRamp(
+    $input: DeleteBoatRampInput!
+    $condition: ModelBoatRampConditionInput
+  ) {
+    deleteBoatRamp(input: $input, condition: $condition) {
+      id
+      name
+      location
+      lakeID
+      lake {
+        id
+        name
+        state
+        description
+        createdAt
+        updatedAt
+        __typename
+      }
+      tournamentLakeBoatRamps {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
       __typename
     }
   }
@@ -120,7 +288,21 @@ export const createTournament = /* GraphQL */ `
       date
       location
       clubID
+      club {
+        id
+        name
+        userID
+        createdAt
+        updatedAt
+        owner
+        __typename
+      }
+      clubName
       userID
+      tournamentLakes {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -138,7 +320,21 @@ export const updateTournament = /* GraphQL */ `
       date
       location
       clubID
+      club {
+        id
+        name
+        userID
+        createdAt
+        updatedAt
+        owner
+        __typename
+      }
+      clubName
       userID
+      tournamentLakes {
+        nextToken
+        __typename
+      }
       createdAt
       updatedAt
       __typename
@@ -156,7 +352,243 @@ export const deleteTournament = /* GraphQL */ `
       date
       location
       clubID
+      club {
+        id
+        name
+        userID
+        createdAt
+        updatedAt
+        owner
+        __typename
+      }
+      clubName
       userID
+      tournamentLakes {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const createTournamentLake = /* GraphQL */ `
+  mutation CreateTournamentLake(
+    $input: CreateTournamentLakeInput!
+    $condition: ModelTournamentLakeConditionInput
+  ) {
+    createTournamentLake(input: $input, condition: $condition) {
+      id
+      tournamentID
+      tournament {
+        id
+        name
+        date
+        location
+        clubID
+        clubName
+        userID
+        createdAt
+        updatedAt
+        __typename
+      }
+      lakeID
+      lake {
+        id
+        name
+        state
+        description
+        createdAt
+        updatedAt
+        __typename
+      }
+      allowAllRamps
+      tournamentLakeBoatRamps {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const updateTournamentLake = /* GraphQL */ `
+  mutation UpdateTournamentLake(
+    $input: UpdateTournamentLakeInput!
+    $condition: ModelTournamentLakeConditionInput
+  ) {
+    updateTournamentLake(input: $input, condition: $condition) {
+      id
+      tournamentID
+      tournament {
+        id
+        name
+        date
+        location
+        clubID
+        clubName
+        userID
+        createdAt
+        updatedAt
+        __typename
+      }
+      lakeID
+      lake {
+        id
+        name
+        state
+        description
+        createdAt
+        updatedAt
+        __typename
+      }
+      allowAllRamps
+      tournamentLakeBoatRamps {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const deleteTournamentLake = /* GraphQL */ `
+  mutation DeleteTournamentLake(
+    $input: DeleteTournamentLakeInput!
+    $condition: ModelTournamentLakeConditionInput
+  ) {
+    deleteTournamentLake(input: $input, condition: $condition) {
+      id
+      tournamentID
+      tournament {
+        id
+        name
+        date
+        location
+        clubID
+        clubName
+        userID
+        createdAt
+        updatedAt
+        __typename
+      }
+      lakeID
+      lake {
+        id
+        name
+        state
+        description
+        createdAt
+        updatedAt
+        __typename
+      }
+      allowAllRamps
+      tournamentLakeBoatRamps {
+        nextToken
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const createTournamentLakeBoatRamp = /* GraphQL */ `
+  mutation CreateTournamentLakeBoatRamp(
+    $input: CreateTournamentLakeBoatRampInput!
+    $condition: ModelTournamentLakeBoatRampConditionInput
+  ) {
+    createTournamentLakeBoatRamp(input: $input, condition: $condition) {
+      id
+      tournamentLakeID
+      tournamentLake {
+        id
+        tournamentID
+        lakeID
+        allowAllRamps
+        createdAt
+        updatedAt
+        __typename
+      }
+      boatRampID
+      boatRamp {
+        id
+        name
+        location
+        lakeID
+        createdAt
+        updatedAt
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const updateTournamentLakeBoatRamp = /* GraphQL */ `
+  mutation UpdateTournamentLakeBoatRamp(
+    $input: UpdateTournamentLakeBoatRampInput!
+    $condition: ModelTournamentLakeBoatRampConditionInput
+  ) {
+    updateTournamentLakeBoatRamp(input: $input, condition: $condition) {
+      id
+      tournamentLakeID
+      tournamentLake {
+        id
+        tournamentID
+        lakeID
+        allowAllRamps
+        createdAt
+        updatedAt
+        __typename
+      }
+      boatRampID
+      boatRamp {
+        id
+        name
+        location
+        lakeID
+        createdAt
+        updatedAt
+        __typename
+      }
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const deleteTournamentLakeBoatRamp = /* GraphQL */ `
+  mutation DeleteTournamentLakeBoatRamp(
+    $input: DeleteTournamentLakeBoatRampInput!
+    $condition: ModelTournamentLakeBoatRampConditionInput
+  ) {
+    deleteTournamentLakeBoatRamp(input: $input, condition: $condition) {
+      id
+      tournamentLakeID
+      tournamentLake {
+        id
+        tournamentID
+        lakeID
+        allowAllRamps
+        createdAt
+        updatedAt
+        __typename
+      }
+      boatRampID
+      boatRamp {
+        id
+        name
+        location
+        lakeID
+        createdAt
+        updatedAt
+        __typename
+      }
       createdAt
       updatedAt
       __typename
