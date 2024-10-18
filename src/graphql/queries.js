@@ -7,12 +7,15 @@ export const getUser = /* GraphQL */ `
       id
       username
       email
+      phoneNumber
+      state
       clubs {
         nextToken
         __typename
       }
       createdAt
       updatedAt
+      owner
       __typename
     }
   }
@@ -28,8 +31,11 @@ export const listUsers = /* GraphQL */ `
         id
         username
         email
+        phoneNumber
+        state
         createdAt
         updatedAt
+        owner
         __typename
       }
       nextToken
@@ -42,7 +48,18 @@ export const getClub = /* GraphQL */ `
     getClub(id: $id) {
       id
       name
+      state
+      cityArea
+      contactEmail
+      phoneNumber
+      description
+      rules
+      memberLimit
       userID
+      memberships {
+        nextToken
+        __typename
+      }
       tournaments {
         nextToken
         __typename
@@ -64,7 +81,79 @@ export const listClubs = /* GraphQL */ `
       items {
         id
         name
+        state
+        cityArea
+        contactEmail
+        phoneNumber
+        description
+        rules
+        memberLimit
         userID
+        createdAt
+        updatedAt
+        owner
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;
+export const getMembership = /* GraphQL */ `
+  query GetMembership($id: ID!) {
+    getMembership(id: $id) {
+      id
+      userID
+      user {
+        id
+        username
+        email
+        phoneNumber
+        state
+        createdAt
+        updatedAt
+        owner
+        __typename
+      }
+      clubID
+      club {
+        id
+        name
+        state
+        cityArea
+        contactEmail
+        phoneNumber
+        description
+        rules
+        memberLimit
+        userID
+        createdAt
+        updatedAt
+        owner
+        __typename
+      }
+      dateJoined
+      phoneNumber
+      createdAt
+      updatedAt
+      owner
+      __typename
+    }
+  }
+`;
+export const listMemberships = /* GraphQL */ `
+  query ListMemberships(
+    $filter: ModelMembershipFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listMemberships(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        userID
+        clubID
+        dateJoined
+        phoneNumber
         createdAt
         updatedAt
         owner
@@ -123,6 +212,11 @@ export const getBoatRamp = /* GraphQL */ `
       id
       name
       location
+      street
+      city
+      state
+      zipCode
+      description
       lakeID
       lake {
         id
@@ -154,6 +248,11 @@ export const listBoatRamps = /* GraphQL */ `
         id
         name
         location
+        street
+        city
+        state
+        zipCode
+        description
         lakeID
         createdAt
         updatedAt
@@ -170,11 +269,24 @@ export const getTournament = /* GraphQL */ `
       id
       name
       date
+      startTime
+      endTime
+      description
+      cost
+      state
       location
+      phoneNumber
       clubID
       club {
         id
         name
+        state
+        cityArea
+        contactEmail
+        phoneNumber
+        description
+        rules
+        memberLimit
         userID
         createdAt
         updatedAt
@@ -189,6 +301,7 @@ export const getTournament = /* GraphQL */ `
       }
       createdAt
       updatedAt
+      owner
       __typename
     }
   }
@@ -204,12 +317,19 @@ export const listTournaments = /* GraphQL */ `
         id
         name
         date
+        startTime
+        endTime
+        description
+        cost
+        state
         location
+        phoneNumber
         clubID
         clubName
         userID
         createdAt
         updatedAt
+        owner
         __typename
       }
       nextToken
@@ -226,12 +346,19 @@ export const getTournamentLake = /* GraphQL */ `
         id
         name
         date
+        startTime
+        endTime
+        description
+        cost
+        state
         location
+        phoneNumber
         clubID
         clubName
         userID
         createdAt
         updatedAt
+        owner
         __typename
       }
       lakeID
@@ -295,6 +422,11 @@ export const getTournamentLakeBoatRamp = /* GraphQL */ `
         id
         name
         location
+        street
+        city
+        state
+        zipCode
+        description
         lakeID
         createdAt
         updatedAt
@@ -350,7 +482,80 @@ export const clubsByUserIDAndId = /* GraphQL */ `
       items {
         id
         name
+        state
+        cityArea
+        contactEmail
+        phoneNumber
+        description
+        rules
+        memberLimit
         userID
+        createdAt
+        updatedAt
+        owner
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;
+export const membershipsByUserIDAndId = /* GraphQL */ `
+  query MembershipsByUserIDAndId(
+    $userID: ID!
+    $id: ModelIDKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelMembershipFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    membershipsByUserIDAndId(
+      userID: $userID
+      id: $id
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        userID
+        clubID
+        dateJoined
+        phoneNumber
+        createdAt
+        updatedAt
+        owner
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;
+export const membershipsByClubIDAndId = /* GraphQL */ `
+  query MembershipsByClubIDAndId(
+    $clubID: ID!
+    $id: ModelIDKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelMembershipFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    membershipsByClubIDAndId(
+      clubID: $clubID
+      id: $id
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        userID
+        clubID
+        dateJoined
+        phoneNumber
         createdAt
         updatedAt
         owner
@@ -380,6 +585,11 @@ export const boatRampsByLakeID = /* GraphQL */ `
         id
         name
         location
+        street
+        city
+        state
+        zipCode
+        description
         lakeID
         createdAt
         updatedAt
@@ -409,12 +619,19 @@ export const tournamentsByClubID = /* GraphQL */ `
         id
         name
         date
+        startTime
+        endTime
+        description
+        cost
+        state
         location
+        phoneNumber
         clubID
         clubName
         userID
         createdAt
         updatedAt
+        owner
         __typename
       }
       nextToken

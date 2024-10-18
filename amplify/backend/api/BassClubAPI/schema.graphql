@@ -1,23 +1,60 @@
-type User @model {
+type User @model
+@auth(rules: [
+  { allow: owner, operations: [read, update] },  # Allow users to read and update their own profile
+  { allow: groups, groups: ["Admin"], operations: [create, read, update, delete] },  # Allow Admins to manage users
+  { allow: private, operations: [create] }  # Allow authenticated users to create their own profile
+]) {
   id: ID!
   username: String!
   email: String!
-  clubs: [Club] @hasMany(indexName: "byUser", fields: ["id"])
+  phoneNumber: String  # Optional phone number for User
+  state: String!
+  clubs: [Membership] @hasMany(indexName: "byUser", fields: ["id"])  # Many-to-many relationship through Membership
 }
 
 type Club @model
 @auth(rules: [
-  { allow: owner },  # Allow owners to manage their own clubs
-  { allow: groups, groups: ["Admin"] },  # Allow Admin group to manage clubs
-  { allow: private, operations: [create, update, delete, read] }  # Allow authenticated users to perform these operations
-]) {
+  { allow: owner, operations: [create, update, delete] },  # Allow the owner to create, update, and delete their own clubs
+  { allow: groups, groups: ["Admin"], operations: [create, update, delete] },  # Allow Admins to manage all clubs
+  { allow: private, operations: [read] }  # Allow all authenticated users to read clubs
+])
+ {
   id: ID!
   name: String!
+  state: String!
+  cityArea: String!  # Required city/area for the club
+  contactEmail: String!  # Required contact information (email)
+  phoneNumber: String  # Optional phone number for Club
+  description: String  # Description of the club
+  rules: String  # Optional field for club rules
+  memberLimit: Int  # Optional limit on the number of members
   userID: ID! @index(name: "byUser", sortKeyFields: ["id"])
+  memberships: [Membership] @hasMany(indexName: "byClub", fields: ["id"])  # Many-to-many relationship through Membership
   tournaments: [Tournament] @hasMany(indexName: "byClub", fields: ["id"])
 }
 
-type Lake @model {
+# Join model representing the membership of a user in a club
+type Membership @model @auth(rules: [
+  { allow: owner, operations: [create, update, delete, read] },  # Allow club owners to manage memberships
+  { allow: groups, groups: ["Admin"], operations: [create, update, delete, read] },  # Allow Admin to manage all memberships
+  { allow: private, operations: [read]}  # Allow members of the club to see other members
+])
+ {
+  id: ID!
+  userID: ID! @index(name: "byUser", sortKeyFields: ["id"])
+  user: User @belongsTo(fields: ["userID"])
+  
+  clubID: ID! @index(name: "byClub", sortKeyFields: ["id"])
+  club: Club @belongsTo(fields: ["clubID"])
+  
+  dateJoined: AWSDate!  # Capture the date the user joined the club
+  phoneNumber: String  # Optional phone number for Membership (member contact info)
+}
+
+type Lake @model @auth(rules: [
+  { allow: groups, groups: ["Admin"], operations: [create, update, delete, read] }  # Only Admins can manage lakes
+])
+ {
   id: ID!
   name: String!
   state: String!
@@ -27,10 +64,19 @@ type Lake @model {
   tournamentLakes: [TournamentLake] @hasMany(indexName: "byLake", fields: ["id"])
 }
 
-type BoatRamp @model {
+type BoatRamp @model
+@auth(rules: [
+  { allow: groups, groups: ["Admin"], operations: [create, update, delete, read] }  # Only Admins can manage boat ramps
+])
+ {
   id: ID!
   name: String!
   location: String!
+  street: String!  # Required street address
+  city: String!  # Required city
+  state: String!  # Required state
+  zipCode: String!  # Required zip code
+  description: String!
 
   lakeID: ID! @index(name: "byLakeBoatRamp")
   lake: Lake @belongsTo(fields: ["lakeID"])
@@ -38,16 +84,28 @@ type BoatRamp @model {
   tournamentLakeBoatRamps: [TournamentLakeBoatRamp] @hasMany(indexName: "byBoatRamp", fields: ["id"])
 }
 
-type Tournament @model {
+type Tournament @model 
+@auth(rules: [
+  { allow: owner, operations: [create, update, delete] },  # Allow the owner to create, update, and delete their own tournaments
+  { allow: groups, groups: ["Admin"], operations: [create, update, delete] },  # Allow Admins to manage all tournaments
+  { allow: private, operations: [read] }  # Allow all authenticated users to read tournaments
+])
+{
   id: ID!
   name: String!
   date: AWSDate!
+  startTime: AWSTime!
+  endTime: AWSTime!
+  description: String
+  cost: Float
+  state: String!
   location: String!
+  phoneNumber: String  # Optional phone number for Tournament
 
-  # Club Association
-  clubID: ID! @index(name: "byClub")
+  # Club Association (optional)
+  clubID: ID @index(name: "byClub")
   club: Club @belongsTo(fields: ["clubID"])
-  clubName: String!  # Denormalized club name
+  clubName: String  # Denormalized club name (optional)
 
   userID: ID!  # ID of the user who created the tournament
 
@@ -77,6 +135,7 @@ type TournamentLakeBoatRamp @model {
   boatRampID: ID! @index(name: "byBoatRamp", sortKeyFields: ["id"])
   boatRamp: BoatRamp @belongsTo(fields: ["boatRampID"])
 }
+
 
 
 

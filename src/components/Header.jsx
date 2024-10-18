@@ -11,10 +11,10 @@ const Header = () => {
   };
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav className="navbar navbar-expand-sm navbar-light bg-light border-bottom fixed-top shadow">
       <div className="container">
         <Link className="navbar-brand" to="/">
-          Bass Club App
+        Bass Club Central
         </Link>
         <button
           className={`navbar-toggler ${navbarOpen ? '' : 'collapsed'}`}

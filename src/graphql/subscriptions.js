@@ -2,62 +2,88 @@
 // this is an auto generated file. This will be overwritten
 
 export const onCreateUser = /* GraphQL */ `
-  subscription OnCreateUser($filter: ModelSubscriptionUserFilterInput) {
-    onCreateUser(filter: $filter) {
+  subscription OnCreateUser(
+    $filter: ModelSubscriptionUserFilterInput
+    $owner: String
+  ) {
+    onCreateUser(filter: $filter, owner: $owner) {
       id
       username
       email
+      phoneNumber
+      state
       clubs {
         nextToken
         __typename
       }
       createdAt
       updatedAt
+      owner
       __typename
     }
   }
 `;
 export const onUpdateUser = /* GraphQL */ `
-  subscription OnUpdateUser($filter: ModelSubscriptionUserFilterInput) {
-    onUpdateUser(filter: $filter) {
+  subscription OnUpdateUser(
+    $filter: ModelSubscriptionUserFilterInput
+    $owner: String
+  ) {
+    onUpdateUser(filter: $filter, owner: $owner) {
       id
       username
       email
+      phoneNumber
+      state
       clubs {
         nextToken
         __typename
       }
       createdAt
       updatedAt
+      owner
       __typename
     }
   }
 `;
 export const onDeleteUser = /* GraphQL */ `
-  subscription OnDeleteUser($filter: ModelSubscriptionUserFilterInput) {
-    onDeleteUser(filter: $filter) {
+  subscription OnDeleteUser(
+    $filter: ModelSubscriptionUserFilterInput
+    $owner: String
+  ) {
+    onDeleteUser(filter: $filter, owner: $owner) {
       id
       username
       email
+      phoneNumber
+      state
       clubs {
         nextToken
         __typename
       }
       createdAt
       updatedAt
+      owner
       __typename
     }
   }
 `;
 export const onCreateClub = /* GraphQL */ `
-  subscription OnCreateClub(
-    $filter: ModelSubscriptionClubFilterInput
-    $owner: String
-  ) {
-    onCreateClub(filter: $filter, owner: $owner) {
+  subscription OnCreateClub($filter: ModelSubscriptionClubFilterInput) {
+    onCreateClub(filter: $filter) {
       id
       name
+      state
+      cityArea
+      contactEmail
+      phoneNumber
+      description
+      rules
+      memberLimit
       userID
+      memberships {
+        nextToken
+        __typename
+      }
       tournaments {
         nextToken
         __typename
@@ -70,14 +96,22 @@ export const onCreateClub = /* GraphQL */ `
   }
 `;
 export const onUpdateClub = /* GraphQL */ `
-  subscription OnUpdateClub(
-    $filter: ModelSubscriptionClubFilterInput
-    $owner: String
-  ) {
-    onUpdateClub(filter: $filter, owner: $owner) {
+  subscription OnUpdateClub($filter: ModelSubscriptionClubFilterInput) {
+    onUpdateClub(filter: $filter) {
       id
       name
+      state
+      cityArea
+      contactEmail
+      phoneNumber
+      description
+      rules
+      memberLimit
       userID
+      memberships {
+        nextToken
+        __typename
+      }
       tournaments {
         nextToken
         __typename
@@ -90,18 +124,161 @@ export const onUpdateClub = /* GraphQL */ `
   }
 `;
 export const onDeleteClub = /* GraphQL */ `
-  subscription OnDeleteClub(
-    $filter: ModelSubscriptionClubFilterInput
-    $owner: String
-  ) {
-    onDeleteClub(filter: $filter, owner: $owner) {
+  subscription OnDeleteClub($filter: ModelSubscriptionClubFilterInput) {
+    onDeleteClub(filter: $filter) {
       id
       name
+      state
+      cityArea
+      contactEmail
+      phoneNumber
+      description
+      rules
+      memberLimit
       userID
+      memberships {
+        nextToken
+        __typename
+      }
       tournaments {
         nextToken
         __typename
       }
+      createdAt
+      updatedAt
+      owner
+      __typename
+    }
+  }
+`;
+export const onCreateMembership = /* GraphQL */ `
+  subscription OnCreateMembership(
+    $filter: ModelSubscriptionMembershipFilterInput
+    $owner: String
+  ) {
+    onCreateMembership(filter: $filter, owner: $owner) {
+      id
+      userID
+      user {
+        id
+        username
+        email
+        phoneNumber
+        state
+        createdAt
+        updatedAt
+        owner
+        __typename
+      }
+      clubID
+      club {
+        id
+        name
+        state
+        cityArea
+        contactEmail
+        phoneNumber
+        description
+        rules
+        memberLimit
+        userID
+        createdAt
+        updatedAt
+        owner
+        __typename
+      }
+      dateJoined
+      phoneNumber
+      createdAt
+      updatedAt
+      owner
+      __typename
+    }
+  }
+`;
+export const onUpdateMembership = /* GraphQL */ `
+  subscription OnUpdateMembership(
+    $filter: ModelSubscriptionMembershipFilterInput
+    $owner: String
+  ) {
+    onUpdateMembership(filter: $filter, owner: $owner) {
+      id
+      userID
+      user {
+        id
+        username
+        email
+        phoneNumber
+        state
+        createdAt
+        updatedAt
+        owner
+        __typename
+      }
+      clubID
+      club {
+        id
+        name
+        state
+        cityArea
+        contactEmail
+        phoneNumber
+        description
+        rules
+        memberLimit
+        userID
+        createdAt
+        updatedAt
+        owner
+        __typename
+      }
+      dateJoined
+      phoneNumber
+      createdAt
+      updatedAt
+      owner
+      __typename
+    }
+  }
+`;
+export const onDeleteMembership = /* GraphQL */ `
+  subscription OnDeleteMembership(
+    $filter: ModelSubscriptionMembershipFilterInput
+    $owner: String
+  ) {
+    onDeleteMembership(filter: $filter, owner: $owner) {
+      id
+      userID
+      user {
+        id
+        username
+        email
+        phoneNumber
+        state
+        createdAt
+        updatedAt
+        owner
+        __typename
+      }
+      clubID
+      club {
+        id
+        name
+        state
+        cityArea
+        contactEmail
+        phoneNumber
+        description
+        rules
+        memberLimit
+        userID
+        createdAt
+        updatedAt
+        owner
+        __typename
+      }
+      dateJoined
+      phoneNumber
       createdAt
       updatedAt
       owner
@@ -178,6 +355,11 @@ export const onCreateBoatRamp = /* GraphQL */ `
       id
       name
       location
+      street
+      city
+      state
+      zipCode
+      description
       lakeID
       lake {
         id
@@ -204,6 +386,11 @@ export const onUpdateBoatRamp = /* GraphQL */ `
       id
       name
       location
+      street
+      city
+      state
+      zipCode
+      description
       lakeID
       lake {
         id
@@ -230,6 +417,11 @@ export const onDeleteBoatRamp = /* GraphQL */ `
       id
       name
       location
+      street
+      city
+      state
+      zipCode
+      description
       lakeID
       lake {
         id
@@ -258,11 +450,24 @@ export const onCreateTournament = /* GraphQL */ `
       id
       name
       date
+      startTime
+      endTime
+      description
+      cost
+      state
       location
+      phoneNumber
       clubID
       club {
         id
         name
+        state
+        cityArea
+        contactEmail
+        phoneNumber
+        description
+        rules
+        memberLimit
         userID
         createdAt
         updatedAt
@@ -277,6 +482,7 @@ export const onCreateTournament = /* GraphQL */ `
       }
       createdAt
       updatedAt
+      owner
       __typename
     }
   }
@@ -289,11 +495,24 @@ export const onUpdateTournament = /* GraphQL */ `
       id
       name
       date
+      startTime
+      endTime
+      description
+      cost
+      state
       location
+      phoneNumber
       clubID
       club {
         id
         name
+        state
+        cityArea
+        contactEmail
+        phoneNumber
+        description
+        rules
+        memberLimit
         userID
         createdAt
         updatedAt
@@ -308,6 +527,7 @@ export const onUpdateTournament = /* GraphQL */ `
       }
       createdAt
       updatedAt
+      owner
       __typename
     }
   }
@@ -320,11 +540,24 @@ export const onDeleteTournament = /* GraphQL */ `
       id
       name
       date
+      startTime
+      endTime
+      description
+      cost
+      state
       location
+      phoneNumber
       clubID
       club {
         id
         name
+        state
+        cityArea
+        contactEmail
+        phoneNumber
+        description
+        rules
+        memberLimit
         userID
         createdAt
         updatedAt
@@ -339,6 +572,7 @@ export const onDeleteTournament = /* GraphQL */ `
       }
       createdAt
       updatedAt
+      owner
       __typename
     }
   }
@@ -354,12 +588,19 @@ export const onCreateTournamentLake = /* GraphQL */ `
         id
         name
         date
+        startTime
+        endTime
+        description
+        cost
+        state
         location
+        phoneNumber
         clubID
         clubName
         userID
         createdAt
         updatedAt
+        owner
         __typename
       }
       lakeID
@@ -394,12 +635,19 @@ export const onUpdateTournamentLake = /* GraphQL */ `
         id
         name
         date
+        startTime
+        endTime
+        description
+        cost
+        state
         location
+        phoneNumber
         clubID
         clubName
         userID
         createdAt
         updatedAt
+        owner
         __typename
       }
       lakeID
@@ -434,12 +682,19 @@ export const onDeleteTournamentLake = /* GraphQL */ `
         id
         name
         date
+        startTime
+        endTime
+        description
+        cost
+        state
         location
+        phoneNumber
         clubID
         clubName
         userID
         createdAt
         updatedAt
+        owner
         __typename
       }
       lakeID
@@ -484,6 +739,11 @@ export const onCreateTournamentLakeBoatRamp = /* GraphQL */ `
         id
         name
         location
+        street
+        city
+        state
+        zipCode
+        description
         lakeID
         createdAt
         updatedAt
@@ -516,6 +776,11 @@ export const onUpdateTournamentLakeBoatRamp = /* GraphQL */ `
         id
         name
         location
+        street
+        city
+        state
+        zipCode
+        description
         lakeID
         createdAt
         updatedAt
@@ -548,6 +813,11 @@ export const onDeleteTournamentLakeBoatRamp = /* GraphQL */ `
         id
         name
         location
+        street
+        city
+        state
+        zipCode
+        description
         lakeID
         createdAt
         updatedAt

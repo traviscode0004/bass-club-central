@@ -10,7 +10,7 @@ const SchedulePage = () => {
   ];
 
   return (
-    <div className="container">
+    <div className="container mt-3">
       <h2 className="my-4">Schedule</h2>
       <table className="table table-striped table-bordered table-hover">
         <thead className="table-dark">

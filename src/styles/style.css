@@ -1,0 +1,68 @@
+/*css site colors
+#FFFFFF
+#315030
+#2A7A9C
+#243B58
+#2F2F2F
+*/
+body{
+    background-color: rgb(255, 255, 255);
+}
+.homebg{
+    background-image: url("../img/bass_club_central_background.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    max-width: 100%;
+    height: 760px;
+    margin: 0px auto;
+    border-bottom: 1px solid white; 
+   }
+.footer {
+    padding: 70px 30px 70px 30px;
+    margin: 0px auto;
+    background-color: #2F2F2F;
+    color: #8f8f8f;
+
+}
+.addone{
+    
+    padding: 70px 30px 10px 30px;
+    margin: 0px auto;
+}
+.section1{
+    
+    padding: 70px 30px 70px 30px;
+    margin: 0px auto;
+}
+.section2{
+    
+    padding: 10px 30px 10px 30px;
+    margin: 0px auto;
+}
+.section3{
+    
+    padding: 70px 30px 70px 30px;
+    margin: 0px auto;
+}
+.section4{
+   
+    padding: 70px 30px 70px 30px;
+    margin: 0px auto;
+}
+ul {
+    list-style-type: none;
+  }
+
+  .line {
+ display: inline;
+        
+        
+  }
+  .test {
+      font-size: 90%;
+  }
+
+  .addtwo{
+      padding-left: 62px; 
+      padding-right: 62px;
+  }
