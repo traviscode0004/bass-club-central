@@ -1,13 +1,271 @@
+/* Global Styles */
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-family: 'Arial', sans-serif;
+  background-color: #f7f7f7; /* Light gray background */
+  color: #333;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+h1, h2, h3, h4 {
+  font-family: 'Helvetica Neue', sans-serif;
+  margin-bottom: 0.5rem;
+  color: #333; /* Dark text color */
+}
+
+/* Updated Airbnb-like Rounded Search Bar */
+
+/* Container for the search bar */
+.search-bar-container {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  background-color: transparent;
+}
+
+/* Search bar styling */
+.search-bar {
+  display: flex;
+  align-items: center;
+  border-radius: 50px;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 8px 12px;
+  width: 500px;
+}
+
+/* Individual search items (State and Date) */
+.search-item {
+  display: flex;
+  flex-direction: column;
+  padding: 12px 20px;
+  border-right: 1px solid #dddddd;
+  flex: 1;
+}
+
+.search-item:last-child {
+  border-right: none;
+}
+
+/* Labels above the inputs */
+.search-label {
+  font-size: 12px;
+  color: #717171;
+  margin-bottom: 4px;
+}
+
+/* Input fields styling */
+.search-input {
+  font-size: 16px;
+  color: #222222;
+  background-color: #f7f7f7;
+  border-radius: 25px;
+  padding: 8px 16px;
+  border: none;
+}
+
+/* Override MUI's default input styles */
+.MuiInputBase-input {
+  font-size: 1rem;
+  padding: 0;
+}
+
+.MuiOutlinedInput-notchedOutline {
+  border: none; /* Remove the default border of the input */
+}
+
+/* Search button styling */
+.search-button {
+  background-color: #ff5a5f; /* Airbnb-like color */
+  color: white;
+  border-radius: 50%;
+  padding: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s;
+}
+
+.search-button:hover {
+  background-color: #e04850;
+}
+
+/* Adjust icon color inside inputs */
+.search-input .MuiInputAdornment-root {
+  color: #888; /* Adjust icon color */
+}
+
+/* Responsive Design for Search Bar */
+@media (max-width: 768px) {
+  .search-bar {
+    flex-direction: column;
+    width: 90%;
+    border-radius: 16px;
+  }
+
+  .search-item {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid #dddddd;
+    padding: 10px 15px;
+  }
+
+  .search-item:last-child {
+    border-bottom: none;
+  }
+
+  .search-button {
+    width: 100%;
+    border-radius: 16px;
+    margin: 10px 0;
+  }
+}
+
+/* Icon Bar Styles (Assuming used elsewhere) */
+.icon-bar {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  background-color: #fff;
+}
+
+.icon-bar div {
+  text-align: center;
+  margin-right: 20px;
+}
+
+.icon-bar div:last-child {
+  margin-right: 0;
+}
+
+.icon-bar .MuiIconButton-root {
+  background-color: #f0f0f0;
+  padding: 10px;
+  border-radius: 50%;
+  color: #555;
+}
+
+.icon-bar .MuiIconButton-root:hover {
+  background-color: #e0e0e0;
+}
+
+.icon-bar p {
+  margin: 5px 0 0;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+/* Cards for Tournaments (Airbnb Style) */
+.tournament-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+  padding: 20px;
+  background-color: #f7f7f7;
+}
+
+.tournament-card {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.tournament-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.tournament-card .content {
+  padding: 15px;
+}
+
+.tournament-card .content h3 {
+  font-size: 1.2rem;
+  color: #333;
+  margin: 0;
+}
+
+.tournament-card .content p {
+  font-size: 0.9rem;
+  color: #888;
+}
+
+.tournament-card .content .price {
+  font-size: 1rem;
+  color: #ff5a5f;
+  font-weight: bold;
+}
+
+/* Buttons and Links */
+a {
+  text-decoration: none;
+  color: #ff5a5f;
+}
+
+a:hover {
+  color: #e04850;
+}
+
+button {
+  cursor: pointer;
+}
+
+/* Header Styles */
+.header {
+  background-color: white;
+  border-bottom: 1px solid #e0e0e0;
+  padding: 10px 0;
+}
+
+.header-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Logo Section */
+.header-logo {
+  display: flex;
+  align-items: center;
+}
+
+.logo-img {
+  height: 40px;
+  margin-right: 10px;
+}
+
+.logo-text {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #ff5a5f; /* Airbnb's primary color */
+}
+
+/* Center Nav Links */
+.header-nav {
+  display: flex;
+  gap: 20px;
+}
+
+.nav-link {
+  font-size: 1rem;
+  color: #333;
+  cursor: pointer;
+}
+
+.nav-link:hover {
+  color: #ff5a5f;
+}
+
+/* Right Section */
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.header-right .MuiIconButton-root {
+  color: #333;
+}
+
+.header-right .MuiIconButton-root:hover {
+  color: #ff5a5f;
 }

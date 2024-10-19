@@ -1,57 +1,55 @@
 // src/pages/LoginPage.jsx
 
 import React, { useState } from 'react';
+import { Container, Typography, TextField, Button, Box } from '@mui/material';
 
 const LoginPage = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  // Handle login logic here
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Implement login logic
+    // Implement login logic here
   };
 
   return (
-    <div className="container">
-      <h2 className="my-4">Login</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="mb-3">
-          <label htmlFor="inputUsername" className="form-label">
-            Username or Email
-          </label>
-          <input
-            type="text"
-            className="form-control"
-            id="inputUsername"
-            placeholder="Enter username or email"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
-        </div>
-
-        <div className="mb-3">
-          <label htmlFor="inputPassword" className="form-label">
-            Password
-          </label>
-          <input
-            type="password"
-            className="form-control"
-            id="inputPassword"
-            placeholder="Enter password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-
-        <button type="submit" className="btn btn-primary">
+    <Container maxWidth="sm">
+      <Box mt={4}>
+        <Typography variant="h4" gutterBottom>
           Login
-        </button>
-      </form>
-    </div>
+        </Typography>
+        <form onSubmit={handleSubmit}>
+          <Box mb={3}>
+            <TextField
+              fullWidth
+              id="inputUsername"
+              label="Username or Email"
+              variant="outlined"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              required
+            />
+          </Box>
+          <Box mb={3}>
+            <TextField
+              fullWidth
+              id="inputPassword"
+              label="Password"
+              type="password"
+              variant="outlined"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </Box>
+          <Button type="submit" variant="contained" color="primary" fullWidth>
+            Login
+          </Button>
+        </form>
+      </Box>
+    </Container>
   );
 };
 
 export default LoginPage;
+

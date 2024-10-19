@@ -1,6 +1,5 @@
-// src/pages/SchedulePage.jsx
-
 import React from 'react';
+import { Container, Typography, Table, TableHead, TableRow, TableCell, TableBody, Paper } from '@mui/material';
 
 const SchedulePage = () => {
   const events = [
@@ -10,28 +9,34 @@ const SchedulePage = () => {
   ];
 
   return (
-    <div className="container mt-3">
-      <h2 className="my-4">Schedule</h2>
-      <table className="table table-striped table-bordered table-hover">
-        <thead className="table-dark">
-          <tr>
-            <th>#</th>
-            <th>Event</th>
-            <th>Date</th>
-          </tr>
-        </thead>
-        <tbody>
-          {events.map((event, index) => (
-            <tr key={event.id}>
-              <td>{index + 1}</td>
-              <td>{event.name}</td>
-              <td>{event.date}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
+    <Container maxWidth="md" sx={{ mt: 3 }}>
+      <Typography variant="h4" gutterBottom>
+        Schedule
+      </Typography>
+
+      <Paper elevation={3}>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>#</TableCell>
+              <TableCell>Event</TableCell>
+              <TableCell>Date</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {events.map((event, index) => (
+              <TableRow key={event.id} hover>
+                <TableCell>{index + 1}</TableCell>
+                <TableCell>{event.name}</TableCell>
+                <TableCell>{event.date}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </Paper>
+    </Container>
   );
 };
 
 export default SchedulePage;
+

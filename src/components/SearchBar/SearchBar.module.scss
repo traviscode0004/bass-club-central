@@ -1,0 +1,109 @@
+/* SearchBar.css */
+
+/* Container */
+.search-bar-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  /* Search Bar */
+  .search-bar {
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 32px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Search Item */
+  .search-item {
+    display: flex;
+    flex-direction: column;
+    padding: 10px 15px;
+    border-right: 1px solid #ddd;
+  }
+  
+  .search-item:last-child {
+    border-right: none;
+  }
+  
+  /* Labels */
+  .search-item label {
+    font-size: 10px;
+    color: #717171;
+    margin-bottom: 4px;
+  }
+  
+  /* TextField Overrides */
+  .search-item .MuiInputBase-root {
+    font-size: 14px;
+    color: #222;
+  }
+  
+  .search-item .MuiInputBase-input {
+    padding: 0;
+  }
+  
+  .search-item .MuiInput-underline:before,
+  .search-item .MuiInput-underline:after {
+    display: none;
+  }
+  
+  /* Search Button */
+  .search-button {
+    background-color: #ff385c;
+    color: #fff;
+    margin-right: 10px;
+  }
+  
+  .search-button:hover {
+    background-color: #e0004d;
+  }
+  
+  .search-button .MuiSvgIcon-root {
+    font-size: 24px;
+  }
+
+  @media (max-width: 600px) {
+    .search-bar {
+      flex-direction: column;
+      border-radius: 16px;
+    }
+  
+    .search-item {
+      width: 100%;
+      border-right: none;
+      border-bottom: 1px solid #ddd;
+    }
+  
+    .search-item:last-child {
+      border-bottom: none;
+    }
+  
+    .search-button {
+      width: 100%;
+      border-radius: 16px;
+      margin: 10px 0;
+    }
+  }
+/* Hover Effects */
+.search-bar:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+  
+  .search-item:hover {
+    background-color: #f7f7f7;
+  }
+  
+  .search-button:hover {
+    background-color: #e0004d;
+  }
+/* Focus Effects */
+.search-item .MuiInputBase-root:focus-within {
+    background-color: #ebebeb;
+  }
+      
+  
