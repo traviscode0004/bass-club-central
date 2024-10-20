@@ -9,7 +9,17 @@ export const getUser = /* GraphQL */ `
       email
       phoneNumber
       state
+      profilePictureUrl
+      heroImageUrl
       clubs {
+        nextToken
+        __typename
+      }
+      posts {
+        nextToken
+        __typename
+      }
+      catchReports {
         nextToken
         __typename
       }
@@ -33,9 +43,113 @@ export const listUsers = /* GraphQL */ `
         email
         phoneNumber
         state
+        profilePictureUrl
+        heroImageUrl
         createdAt
         updatedAt
         owner
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;
+export const getPost = /* GraphQL */ `
+  query GetPost($id: ID!) {
+    getPost(id: $id) {
+      id
+      userID
+      user {
+        id
+        username
+        email
+        phoneNumber
+        state
+        profilePictureUrl
+        heroImageUrl
+        createdAt
+        updatedAt
+        owner
+        __typename
+      }
+      content
+      imageUrl
+      createdAt
+      updatedAt
+      userPostsId
+      __typename
+    }
+  }
+`;
+export const listPosts = /* GraphQL */ `
+  query ListPosts(
+    $filter: ModelPostFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listPosts(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        userID
+        content
+        imageUrl
+        createdAt
+        updatedAt
+        userPostsId
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;
+export const getCatchReport = /* GraphQL */ `
+  query GetCatchReport($id: ID!) {
+    getCatchReport(id: $id) {
+      id
+      userID
+      user {
+        id
+        username
+        email
+        phoneNumber
+        state
+        profilePictureUrl
+        heroImageUrl
+        createdAt
+        updatedAt
+        owner
+        __typename
+      }
+      fishType
+      weight
+      location
+      imageUrl
+      createdAt
+      updatedAt
+      userCatchReportsId
+      __typename
+    }
+  }
+`;
+export const listCatchReports = /* GraphQL */ `
+  query ListCatchReports(
+    $filter: ModelCatchReportFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listCatchReports(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        userID
+        fishType
+        weight
+        location
+        imageUrl
+        createdAt
+        updatedAt
+        userCatchReportsId
         __typename
       }
       nextToken
@@ -55,6 +169,9 @@ export const getClub = /* GraphQL */ `
       description
       rules
       memberLimit
+      logoUrl
+      additionalImages
+      bannerImageUrl
       userID
       memberships {
         nextToken
@@ -88,6 +205,9 @@ export const listClubs = /* GraphQL */ `
         description
         rules
         memberLimit
+        logoUrl
+        additionalImages
+        bannerImageUrl
         userID
         createdAt
         updatedAt
@@ -110,6 +230,8 @@ export const getMembership = /* GraphQL */ `
         email
         phoneNumber
         state
+        profilePictureUrl
+        heroImageUrl
         createdAt
         updatedAt
         owner
@@ -126,6 +248,9 @@ export const getMembership = /* GraphQL */ `
         description
         rules
         memberLimit
+        logoUrl
+        additionalImages
+        bannerImageUrl
         userID
         createdAt
         updatedAt
@@ -134,8 +259,11 @@ export const getMembership = /* GraphQL */ `
       }
       dateJoined
       phoneNumber
+      clubProfilePictureUrl
       createdAt
       updatedAt
+      userClubsId
+      clubMembershipsId
       owner
       __typename
     }
@@ -154,8 +282,11 @@ export const listMemberships = /* GraphQL */ `
         clubID
         dateJoined
         phoneNumber
+        clubProfilePictureUrl
         createdAt
         updatedAt
+        userClubsId
+        clubMembershipsId
         owner
         __typename
       }
@@ -171,6 +302,7 @@ export const getLake = /* GraphQL */ `
       name
       state
       description
+      images
       boatRamps {
         nextToken
         __typename
@@ -197,6 +329,7 @@ export const listLakes = /* GraphQL */ `
         name
         state
         description
+        images
         createdAt
         updatedAt
         __typename
@@ -217,12 +350,14 @@ export const getBoatRamp = /* GraphQL */ `
       state
       zipCode
       description
+      images
       lakeID
       lake {
         id
         name
         state
         description
+        images
         createdAt
         updatedAt
         __typename
@@ -233,6 +368,7 @@ export const getBoatRamp = /* GraphQL */ `
       }
       createdAt
       updatedAt
+      lakeBoatRampsId
       __typename
     }
   }
@@ -253,9 +389,11 @@ export const listBoatRamps = /* GraphQL */ `
         state
         zipCode
         description
+        images
         lakeID
         createdAt
         updatedAt
+        lakeBoatRampsId
         __typename
       }
       nextToken
@@ -276,6 +414,9 @@ export const getTournament = /* GraphQL */ `
       state
       location
       phoneNumber
+      logoUrl
+      bannerImageUrl
+      gallery
       clubID
       club {
         id
@@ -287,6 +428,9 @@ export const getTournament = /* GraphQL */ `
         description
         rules
         memberLimit
+        logoUrl
+        additionalImages
+        bannerImageUrl
         userID
         createdAt
         updatedAt
@@ -301,6 +445,7 @@ export const getTournament = /* GraphQL */ `
       }
       createdAt
       updatedAt
+      clubTournamentsId
       owner
       __typename
     }
@@ -324,11 +469,15 @@ export const listTournaments = /* GraphQL */ `
         state
         location
         phoneNumber
+        logoUrl
+        bannerImageUrl
+        gallery
         clubID
         clubName
         userID
         createdAt
         updatedAt
+        clubTournamentsId
         owner
         __typename
       }
@@ -353,11 +502,15 @@ export const getTournamentLake = /* GraphQL */ `
         state
         location
         phoneNumber
+        logoUrl
+        bannerImageUrl
+        gallery
         clubID
         clubName
         userID
         createdAt
         updatedAt
+        clubTournamentsId
         owner
         __typename
       }
@@ -367,6 +520,7 @@ export const getTournamentLake = /* GraphQL */ `
         name
         state
         description
+        images
         createdAt
         updatedAt
         __typename
@@ -378,6 +532,8 @@ export const getTournamentLake = /* GraphQL */ `
       }
       createdAt
       updatedAt
+      lakeTournamentLakesId
+      tournamentTournamentLakesId
       __typename
     }
   }
@@ -396,6 +552,8 @@ export const listTournamentLakes = /* GraphQL */ `
         allowAllRamps
         createdAt
         updatedAt
+        lakeTournamentLakesId
+        tournamentTournamentLakesId
         __typename
       }
       nextToken
@@ -415,6 +573,8 @@ export const getTournamentLakeBoatRamp = /* GraphQL */ `
         allowAllRamps
         createdAt
         updatedAt
+        lakeTournamentLakesId
+        tournamentTournamentLakesId
         __typename
       }
       boatRampID
@@ -427,13 +587,17 @@ export const getTournamentLakeBoatRamp = /* GraphQL */ `
         state
         zipCode
         description
+        images
         lakeID
         createdAt
         updatedAt
+        lakeBoatRampsId
         __typename
       }
       createdAt
       updatedAt
+      boatRampTournamentLakeBoatRampsId
+      tournamentLakeTournamentLakeBoatRampsId
       __typename
     }
   }
@@ -455,6 +619,8 @@ export const listTournamentLakeBoatRamps = /* GraphQL */ `
         boatRampID
         createdAt
         updatedAt
+        boatRampTournamentLakeBoatRampsId
+        tournamentLakeTournamentLakeBoatRampsId
         __typename
       }
       nextToken
@@ -462,296 +628,33 @@ export const listTournamentLakeBoatRamps = /* GraphQL */ `
     }
   }
 `;
-export const clubsByUserIDAndId = /* GraphQL */ `
-  query ClubsByUserIDAndId(
-    $userID: ID!
-    $id: ModelIDKeyConditionInput
-    $sortDirection: ModelSortDirection
-    $filter: ModelClubFilterInput
+export const getEvent = /* GraphQL */ `
+  query GetEvent($id: ID!) {
+    getEvent(id: $id) {
+      id
+      name
+      description
+      date
+      imageUrl
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const listEvents = /* GraphQL */ `
+  query ListEvents(
+    $filter: ModelEventFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    clubsByUserIDAndId(
-      userID: $userID
-      id: $id
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
+    listEvents(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
         name
-        state
-        cityArea
-        contactEmail
-        phoneNumber
         description
-        rules
-        memberLimit
-        userID
-        createdAt
-        updatedAt
-        owner
-        __typename
-      }
-      nextToken
-      __typename
-    }
-  }
-`;
-export const membershipsByUserIDAndId = /* GraphQL */ `
-  query MembershipsByUserIDAndId(
-    $userID: ID!
-    $id: ModelIDKeyConditionInput
-    $sortDirection: ModelSortDirection
-    $filter: ModelMembershipFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    membershipsByUserIDAndId(
-      userID: $userID
-      id: $id
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        userID
-        clubID
-        dateJoined
-        phoneNumber
-        createdAt
-        updatedAt
-        owner
-        __typename
-      }
-      nextToken
-      __typename
-    }
-  }
-`;
-export const membershipsByClubIDAndId = /* GraphQL */ `
-  query MembershipsByClubIDAndId(
-    $clubID: ID!
-    $id: ModelIDKeyConditionInput
-    $sortDirection: ModelSortDirection
-    $filter: ModelMembershipFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    membershipsByClubIDAndId(
-      clubID: $clubID
-      id: $id
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        userID
-        clubID
-        dateJoined
-        phoneNumber
-        createdAt
-        updatedAt
-        owner
-        __typename
-      }
-      nextToken
-      __typename
-    }
-  }
-`;
-export const boatRampsByLakeID = /* GraphQL */ `
-  query BoatRampsByLakeID(
-    $lakeID: ID!
-    $sortDirection: ModelSortDirection
-    $filter: ModelBoatRampFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    boatRampsByLakeID(
-      lakeID: $lakeID
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        name
-        location
-        street
-        city
-        state
-        zipCode
-        description
-        lakeID
-        createdAt
-        updatedAt
-        __typename
-      }
-      nextToken
-      __typename
-    }
-  }
-`;
-export const tournamentsByClubID = /* GraphQL */ `
-  query TournamentsByClubID(
-    $clubID: ID!
-    $sortDirection: ModelSortDirection
-    $filter: ModelTournamentFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    tournamentsByClubID(
-      clubID: $clubID
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        name
         date
-        startTime
-        endTime
-        description
-        cost
-        state
-        location
-        phoneNumber
-        clubID
-        clubName
-        userID
-        createdAt
-        updatedAt
-        owner
-        __typename
-      }
-      nextToken
-      __typename
-    }
-  }
-`;
-export const tournamentLakesByTournamentIDAndId = /* GraphQL */ `
-  query TournamentLakesByTournamentIDAndId(
-    $tournamentID: ID!
-    $id: ModelIDKeyConditionInput
-    $sortDirection: ModelSortDirection
-    $filter: ModelTournamentLakeFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    tournamentLakesByTournamentIDAndId(
-      tournamentID: $tournamentID
-      id: $id
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        tournamentID
-        lakeID
-        allowAllRamps
-        createdAt
-        updatedAt
-        __typename
-      }
-      nextToken
-      __typename
-    }
-  }
-`;
-export const tournamentLakesByLakeIDAndId = /* GraphQL */ `
-  query TournamentLakesByLakeIDAndId(
-    $lakeID: ID!
-    $id: ModelIDKeyConditionInput
-    $sortDirection: ModelSortDirection
-    $filter: ModelTournamentLakeFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    tournamentLakesByLakeIDAndId(
-      lakeID: $lakeID
-      id: $id
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        tournamentID
-        lakeID
-        allowAllRamps
-        createdAt
-        updatedAt
-        __typename
-      }
-      nextToken
-      __typename
-    }
-  }
-`;
-export const tournamentLakeBoatRampsByTournamentLakeIDAndId = /* GraphQL */ `
-  query TournamentLakeBoatRampsByTournamentLakeIDAndId(
-    $tournamentLakeID: ID!
-    $id: ModelIDKeyConditionInput
-    $sortDirection: ModelSortDirection
-    $filter: ModelTournamentLakeBoatRampFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    tournamentLakeBoatRampsByTournamentLakeIDAndId(
-      tournamentLakeID: $tournamentLakeID
-      id: $id
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        tournamentLakeID
-        boatRampID
-        createdAt
-        updatedAt
-        __typename
-      }
-      nextToken
-      __typename
-    }
-  }
-`;
-export const tournamentLakeBoatRampsByBoatRampIDAndId = /* GraphQL */ `
-  query TournamentLakeBoatRampsByBoatRampIDAndId(
-    $boatRampID: ID!
-    $id: ModelIDKeyConditionInput
-    $sortDirection: ModelSortDirection
-    $filter: ModelTournamentLakeBoatRampFilterInput
-    $limit: Int
-    $nextToken: String
-  ) {
-    tournamentLakeBoatRampsByBoatRampIDAndId(
-      boatRampID: $boatRampID
-      id: $id
-      sortDirection: $sortDirection
-      filter: $filter
-      limit: $limit
-      nextToken: $nextToken
-    ) {
-      items {
-        id
-        tournamentLakeID
-        boatRampID
+        imageUrl
         createdAt
         updatedAt
         __typename

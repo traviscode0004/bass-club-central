@@ -1,47 +1,51 @@
-type User @model
+type User @model 
 @auth(rules: [
-  { allow: owner, operations: [read, update] },  
-  { allow: groups, groups: ["Admin"], operations: [create, read, update, delete] },  
-  { allow: private, operations: [create] }  
+  { allow: owner, operations: [read, update] }, 
+  { allow: groups, groups: ["Admin"], operations: [create, read, update, delete] }, 
+  { allow: private, operations: [create] }
 ]) {
   id: ID!
   username: String!
   email: String!
-  phoneNumber: String  # Optional phone number for User
+  phoneNumber: String
   state: String!
-  profilePictureUrl: String  # URL for profile picture
-  heroImageUrl: String  # URL for hero image
-  clubs: [Membership] @hasMany(indexName: "byUser", fields: ["id"])  # Many-to-many relationship through Membership
-  posts: [Post] @hasMany(indexName: "byUser", fields: ["id"])  # Relationship to posts
-  catchReports: [CatchReport] @hasMany(indexName: "byUser", fields: ["id"])  # Relationship to catch reports
+  profilePictureUrl: String
+  heroImageUrl: String
+  clubs: [Membership] @hasMany  # Removed fields for seed compatibility
+  posts: [Post] @hasMany
+  catchReports: [CatchReport] @hasMany
 }
 
-type Post @model {
+type Post @model 
+@auth(rules: [
+  { allow: private }
+]) {
   id: ID!
-  userID: ID! @index(name: "byUser", sortKeyFields: ["id"])  # Foreign key for User
-  user: User @belongsTo(fields: ["userID"])  # Relationship with User
-  content: String!  # Post content or announcement
-  imageUrl: String  # Optional URL for attached image
-  createdAt: AWSDateTime!  # Timestamp of the post
-}
-
-type CatchReport @model {
-  id: ID!
-  userID: ID! @index(name: "byUser", sortKeyFields: ["id"])  # Foreign key for User
-  user: User @belongsTo(fields: ["userID"])  # Relationship with User
-  fishType: String!
-  weight: Float  # Weight of the catch
-  location: String!
-  imageUrl: String  # Optional URL for the catch image
+  userID: ID!
+  user: User @belongsTo(fields: ["userID"])
+  content: String!
+  imageUrl: String
   createdAt: AWSDateTime!
 }
 
-
-
-type Club @model
+type CatchReport @model 
 @auth(rules: [
-  { allow: owner, operations: [create, update, delete] },  
-  { allow: groups, groups: ["Admin"], operations: [create, update, delete] },  
+  { allow: private }
+]) {
+  id: ID!
+  userID: ID!
+  user: User @belongsTo(fields: ["userID"])
+  fishType: String!
+  weight: Float
+  location: String!
+  imageUrl: String
+  createdAt: AWSDateTime!
+}
+
+type Club @model 
+@auth(rules: [
+  { allow: owner, operations: [create, update, delete] }, 
+  { allow: groups, groups: ["Admin"], operations: [create, update, delete] }, 
   { allow: private, operations: [read] }
 ]) {
   id: ID!
@@ -53,42 +57,44 @@ type Club @model
   description: String
   rules: String
   memberLimit: Int
-  logoUrl: String  # URL for club logo
-  additionalImages: [String]  # Array of URLs for additional club images
-  bannerImageUrl: String  # Optional club banner image URL
-  userID: ID! @index(name: "byUser", sortKeyFields: ["id"])
-  memberships: [Membership] @hasMany(indexName: "byClub", fields: ["id"])
-  tournaments: [Tournament] @hasMany(indexName: "byClub", fields: ["id"])
+  logoUrl: String
+  additionalImages: [String]
+  bannerImageUrl: String
+  userID: ID!
+  memberships: [Membership] @hasMany
+  tournaments: [Tournament] @hasMany
 }
 
-type Membership @model @auth(rules: [
-  { allow: owner, operations: [create, update, delete, read] },
-  { allow: groups, groups: ["Admin"], operations: [create, update, delete, read] },
-  { allow: private, operations: [read]}  
+type Membership @model 
+@auth(rules: [
+  { allow: owner, operations: [create, update, delete, read] }, 
+  { allow: groups, groups: ["Admin"], operations: [create, update, delete, read] }, 
+  { allow: private, operations: [read] }
 ]) {
   id: ID!
-  userID: ID! @index(name: "byUser", sortKeyFields: ["id"])
+  userID: ID!
   user: User @belongsTo(fields: ["userID"])
-  clubID: ID! @index(name: "byClub", sortKeyFields: ["id"])
+  clubID: ID!
   club: Club @belongsTo(fields: ["clubID"])
   dateJoined: AWSDate!
   phoneNumber: String
-  clubProfilePictureUrl: String  # Optional club-specific profile picture for the member
+  clubProfilePictureUrl: String
 }
 
-type Lake @model @auth(rules: [
+type Lake @model 
+@auth(rules: [
   { allow: groups, groups: ["Admin"], operations: [create, update, delete, read] }
 ]) {
   id: ID!
   name: String!
   state: String!
   description: String
-  images: [String]  # Array of URLs for lake images
-  boatRamps: [BoatRamp] @hasMany(indexName: "byLakeBoatRamp", fields: ["id"])
-  tournamentLakes: [TournamentLake] @hasMany(indexName: "byLake", fields: ["id"])
+  images: [String]
+  boatRamps: [BoatRamp] @hasMany
+  tournamentLakes: [TournamentLake] @hasMany
 }
 
-type BoatRamp @model
+type BoatRamp @model 
 @auth(rules: [
   { allow: groups, groups: ["Admin"], operations: [create, update, delete, read] }
 ]) {
@@ -100,16 +106,16 @@ type BoatRamp @model
   state: String!
   zipCode: String!
   description: String!
-  images: [String]  # Array of URLs for boat ramp images
-  lakeID: ID! @index(name: "byLakeBoatRamp")
+  images: [String]
+  lakeID: ID!
   lake: Lake @belongsTo(fields: ["lakeID"])
-  tournamentLakeBoatRamps: [TournamentLakeBoatRamp] @hasMany(indexName: "byBoatRamp", fields: ["id"])
+  tournamentLakeBoatRamps: [TournamentLakeBoatRamp] @hasMany
 }
 
 type Tournament @model 
 @auth(rules: [
-  { allow: owner, operations: [create, update, delete] },  
-  { allow: groups, groups: ["Admin"], operations: [create, update, delete] },  
+  { allow: owner, operations: [create, update, delete] }, 
+  { allow: groups, groups: ["Admin"], operations: [create, update, delete] }, 
   { allow: private, operations: [read] }
 ]) {
   id: ID!
@@ -122,64 +128,48 @@ type Tournament @model
   state: String!
   location: String!
   phoneNumber: String
-  logoUrl: String  # URL for tournament logo
-  bannerImageUrl: String  # Optional tournament banner image URL
-  gallery: [String]  # Array of URLs for tournament gallery images
-  clubID: ID @index(name: "byClub")
+  logoUrl: String
+  bannerImageUrl: String
+  gallery: [String]
+  clubID: ID
   club: Club @belongsTo(fields: ["clubID"])
   clubName: String
   userID: ID!
-  tournamentLakes: [TournamentLake] @hasMany(indexName: "byTournament", fields: ["id"])
+  tournamentLakes: [TournamentLake] @hasMany
 }
 
-type TournamentLake @model {
+type TournamentLake @model 
+@auth(rules: [
+  { allow: private }
+]) {
   id: ID!
-  tournamentID: ID! @index(name: "byTournament", sortKeyFields: ["id"])
+  tournamentID: ID!
   tournament: Tournament @belongsTo(fields: ["tournamentID"])
-  lakeID: ID! @index(name: "byLake", sortKeyFields: ["id"])
+  lakeID: ID!
   lake: Lake @belongsTo(fields: ["lakeID"])
   allowAllRamps: Boolean!
-  tournamentLakeBoatRamps: [TournamentLakeBoatRamp] @hasMany(indexName: "byTournamentLake", fields: ["id"])
+  tournamentLakeBoatRamps: [TournamentLakeBoatRamp] @hasMany
 }
 
-type TournamentLakeBoatRamp @model {
+type TournamentLakeBoatRamp @model 
+@auth(rules: [
+  { allow: private }
+]) {
   id: ID!
-  tournamentLakeID: ID! @index(name: "byTournamentLake", sortKeyFields: ["id"])
+  tournamentLakeID: ID!
   tournamentLake: TournamentLake @belongsTo(fields: ["tournamentLakeID"])
-  boatRampID: ID! @index(name: "byBoatRamp", sortKeyFields: ["id"])
+  boatRampID: ID!
   boatRamp: BoatRamp @belongsTo(fields: ["boatRampID"])
 }
 
-
-
-# New Type: Event for event flyers or promotional material
-type Event @model {
+type Event @model 
+@auth(rules: [
+  { allow: private }
+]) {
   id: ID!
   name: String!
   description: String
   date: AWSDate!
-  imageUrl: String  # Optional promotional flyer or event image
+  imageUrl: String
   createdAt: AWSDateTime!
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

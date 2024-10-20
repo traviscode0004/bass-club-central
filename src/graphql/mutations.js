@@ -12,7 +12,17 @@ export const createUser = /* GraphQL */ `
       email
       phoneNumber
       state
+      profilePictureUrl
+      heroImageUrl
       clubs {
+        nextToken
+        __typename
+      }
+      posts {
+        nextToken
+        __typename
+      }
+      catchReports {
         nextToken
         __typename
       }
@@ -34,7 +44,17 @@ export const updateUser = /* GraphQL */ `
       email
       phoneNumber
       state
+      profilePictureUrl
+      heroImageUrl
       clubs {
+        nextToken
+        __typename
+      }
+      posts {
+        nextToken
+        __typename
+      }
+      catchReports {
         nextToken
         __typename
       }
@@ -56,13 +76,209 @@ export const deleteUser = /* GraphQL */ `
       email
       phoneNumber
       state
+      profilePictureUrl
+      heroImageUrl
       clubs {
+        nextToken
+        __typename
+      }
+      posts {
+        nextToken
+        __typename
+      }
+      catchReports {
         nextToken
         __typename
       }
       createdAt
       updatedAt
       owner
+      __typename
+    }
+  }
+`;
+export const createPost = /* GraphQL */ `
+  mutation CreatePost(
+    $input: CreatePostInput!
+    $condition: ModelPostConditionInput
+  ) {
+    createPost(input: $input, condition: $condition) {
+      id
+      userID
+      user {
+        id
+        username
+        email
+        phoneNumber
+        state
+        profilePictureUrl
+        heroImageUrl
+        createdAt
+        updatedAt
+        owner
+        __typename
+      }
+      content
+      imageUrl
+      createdAt
+      updatedAt
+      userPostsId
+      __typename
+    }
+  }
+`;
+export const updatePost = /* GraphQL */ `
+  mutation UpdatePost(
+    $input: UpdatePostInput!
+    $condition: ModelPostConditionInput
+  ) {
+    updatePost(input: $input, condition: $condition) {
+      id
+      userID
+      user {
+        id
+        username
+        email
+        phoneNumber
+        state
+        profilePictureUrl
+        heroImageUrl
+        createdAt
+        updatedAt
+        owner
+        __typename
+      }
+      content
+      imageUrl
+      createdAt
+      updatedAt
+      userPostsId
+      __typename
+    }
+  }
+`;
+export const deletePost = /* GraphQL */ `
+  mutation DeletePost(
+    $input: DeletePostInput!
+    $condition: ModelPostConditionInput
+  ) {
+    deletePost(input: $input, condition: $condition) {
+      id
+      userID
+      user {
+        id
+        username
+        email
+        phoneNumber
+        state
+        profilePictureUrl
+        heroImageUrl
+        createdAt
+        updatedAt
+        owner
+        __typename
+      }
+      content
+      imageUrl
+      createdAt
+      updatedAt
+      userPostsId
+      __typename
+    }
+  }
+`;
+export const createCatchReport = /* GraphQL */ `
+  mutation CreateCatchReport(
+    $input: CreateCatchReportInput!
+    $condition: ModelCatchReportConditionInput
+  ) {
+    createCatchReport(input: $input, condition: $condition) {
+      id
+      userID
+      user {
+        id
+        username
+        email
+        phoneNumber
+        state
+        profilePictureUrl
+        heroImageUrl
+        createdAt
+        updatedAt
+        owner
+        __typename
+      }
+      fishType
+      weight
+      location
+      imageUrl
+      createdAt
+      updatedAt
+      userCatchReportsId
+      __typename
+    }
+  }
+`;
+export const updateCatchReport = /* GraphQL */ `
+  mutation UpdateCatchReport(
+    $input: UpdateCatchReportInput!
+    $condition: ModelCatchReportConditionInput
+  ) {
+    updateCatchReport(input: $input, condition: $condition) {
+      id
+      userID
+      user {
+        id
+        username
+        email
+        phoneNumber
+        state
+        profilePictureUrl
+        heroImageUrl
+        createdAt
+        updatedAt
+        owner
+        __typename
+      }
+      fishType
+      weight
+      location
+      imageUrl
+      createdAt
+      updatedAt
+      userCatchReportsId
+      __typename
+    }
+  }
+`;
+export const deleteCatchReport = /* GraphQL */ `
+  mutation DeleteCatchReport(
+    $input: DeleteCatchReportInput!
+    $condition: ModelCatchReportConditionInput
+  ) {
+    deleteCatchReport(input: $input, condition: $condition) {
+      id
+      userID
+      user {
+        id
+        username
+        email
+        phoneNumber
+        state
+        profilePictureUrl
+        heroImageUrl
+        createdAt
+        updatedAt
+        owner
+        __typename
+      }
+      fishType
+      weight
+      location
+      imageUrl
+      createdAt
+      updatedAt
+      userCatchReportsId
       __typename
     }
   }
@@ -82,6 +298,9 @@ export const createClub = /* GraphQL */ `
       description
       rules
       memberLimit
+      logoUrl
+      additionalImages
+      bannerImageUrl
       userID
       memberships {
         nextToken
@@ -113,6 +332,9 @@ export const updateClub = /* GraphQL */ `
       description
       rules
       memberLimit
+      logoUrl
+      additionalImages
+      bannerImageUrl
       userID
       memberships {
         nextToken
@@ -144,6 +366,9 @@ export const deleteClub = /* GraphQL */ `
       description
       rules
       memberLimit
+      logoUrl
+      additionalImages
+      bannerImageUrl
       userID
       memberships {
         nextToken
@@ -174,6 +399,8 @@ export const createMembership = /* GraphQL */ `
         email
         phoneNumber
         state
+        profilePictureUrl
+        heroImageUrl
         createdAt
         updatedAt
         owner
@@ -190,6 +417,9 @@ export const createMembership = /* GraphQL */ `
         description
         rules
         memberLimit
+        logoUrl
+        additionalImages
+        bannerImageUrl
         userID
         createdAt
         updatedAt
@@ -198,8 +428,11 @@ export const createMembership = /* GraphQL */ `
       }
       dateJoined
       phoneNumber
+      clubProfilePictureUrl
       createdAt
       updatedAt
+      userClubsId
+      clubMembershipsId
       owner
       __typename
     }
@@ -219,6 +452,8 @@ export const updateMembership = /* GraphQL */ `
         email
         phoneNumber
         state
+        profilePictureUrl
+        heroImageUrl
         createdAt
         updatedAt
         owner
@@ -235,6 +470,9 @@ export const updateMembership = /* GraphQL */ `
         description
         rules
         memberLimit
+        logoUrl
+        additionalImages
+        bannerImageUrl
         userID
         createdAt
         updatedAt
@@ -243,8 +481,11 @@ export const updateMembership = /* GraphQL */ `
       }
       dateJoined
       phoneNumber
+      clubProfilePictureUrl
       createdAt
       updatedAt
+      userClubsId
+      clubMembershipsId
       owner
       __typename
     }
@@ -264,6 +505,8 @@ export const deleteMembership = /* GraphQL */ `
         email
         phoneNumber
         state
+        profilePictureUrl
+        heroImageUrl
         createdAt
         updatedAt
         owner
@@ -280,6 +523,9 @@ export const deleteMembership = /* GraphQL */ `
         description
         rules
         memberLimit
+        logoUrl
+        additionalImages
+        bannerImageUrl
         userID
         createdAt
         updatedAt
@@ -288,8 +534,11 @@ export const deleteMembership = /* GraphQL */ `
       }
       dateJoined
       phoneNumber
+      clubProfilePictureUrl
       createdAt
       updatedAt
+      userClubsId
+      clubMembershipsId
       owner
       __typename
     }
@@ -305,6 +554,7 @@ export const createLake = /* GraphQL */ `
       name
       state
       description
+      images
       boatRamps {
         nextToken
         __typename
@@ -329,6 +579,7 @@ export const updateLake = /* GraphQL */ `
       name
       state
       description
+      images
       boatRamps {
         nextToken
         __typename
@@ -353,6 +604,7 @@ export const deleteLake = /* GraphQL */ `
       name
       state
       description
+      images
       boatRamps {
         nextToken
         __typename
@@ -381,12 +633,14 @@ export const createBoatRamp = /* GraphQL */ `
       state
       zipCode
       description
+      images
       lakeID
       lake {
         id
         name
         state
         description
+        images
         createdAt
         updatedAt
         __typename
@@ -397,6 +651,7 @@ export const createBoatRamp = /* GraphQL */ `
       }
       createdAt
       updatedAt
+      lakeBoatRampsId
       __typename
     }
   }
@@ -415,12 +670,14 @@ export const updateBoatRamp = /* GraphQL */ `
       state
       zipCode
       description
+      images
       lakeID
       lake {
         id
         name
         state
         description
+        images
         createdAt
         updatedAt
         __typename
@@ -431,6 +688,7 @@ export const updateBoatRamp = /* GraphQL */ `
       }
       createdAt
       updatedAt
+      lakeBoatRampsId
       __typename
     }
   }
@@ -449,12 +707,14 @@ export const deleteBoatRamp = /* GraphQL */ `
       state
       zipCode
       description
+      images
       lakeID
       lake {
         id
         name
         state
         description
+        images
         createdAt
         updatedAt
         __typename
@@ -465,6 +725,7 @@ export const deleteBoatRamp = /* GraphQL */ `
       }
       createdAt
       updatedAt
+      lakeBoatRampsId
       __typename
     }
   }
@@ -485,6 +746,9 @@ export const createTournament = /* GraphQL */ `
       state
       location
       phoneNumber
+      logoUrl
+      bannerImageUrl
+      gallery
       clubID
       club {
         id
@@ -496,6 +760,9 @@ export const createTournament = /* GraphQL */ `
         description
         rules
         memberLimit
+        logoUrl
+        additionalImages
+        bannerImageUrl
         userID
         createdAt
         updatedAt
@@ -510,6 +777,7 @@ export const createTournament = /* GraphQL */ `
       }
       createdAt
       updatedAt
+      clubTournamentsId
       owner
       __typename
     }
@@ -531,6 +799,9 @@ export const updateTournament = /* GraphQL */ `
       state
       location
       phoneNumber
+      logoUrl
+      bannerImageUrl
+      gallery
       clubID
       club {
         id
@@ -542,6 +813,9 @@ export const updateTournament = /* GraphQL */ `
         description
         rules
         memberLimit
+        logoUrl
+        additionalImages
+        bannerImageUrl
         userID
         createdAt
         updatedAt
@@ -556,6 +830,7 @@ export const updateTournament = /* GraphQL */ `
       }
       createdAt
       updatedAt
+      clubTournamentsId
       owner
       __typename
     }
@@ -577,6 +852,9 @@ export const deleteTournament = /* GraphQL */ `
       state
       location
       phoneNumber
+      logoUrl
+      bannerImageUrl
+      gallery
       clubID
       club {
         id
@@ -588,6 +866,9 @@ export const deleteTournament = /* GraphQL */ `
         description
         rules
         memberLimit
+        logoUrl
+        additionalImages
+        bannerImageUrl
         userID
         createdAt
         updatedAt
@@ -602,6 +883,7 @@ export const deleteTournament = /* GraphQL */ `
       }
       createdAt
       updatedAt
+      clubTournamentsId
       owner
       __typename
     }
@@ -626,11 +908,15 @@ export const createTournamentLake = /* GraphQL */ `
         state
         location
         phoneNumber
+        logoUrl
+        bannerImageUrl
+        gallery
         clubID
         clubName
         userID
         createdAt
         updatedAt
+        clubTournamentsId
         owner
         __typename
       }
@@ -640,6 +926,7 @@ export const createTournamentLake = /* GraphQL */ `
         name
         state
         description
+        images
         createdAt
         updatedAt
         __typename
@@ -651,6 +938,8 @@ export const createTournamentLake = /* GraphQL */ `
       }
       createdAt
       updatedAt
+      lakeTournamentLakesId
+      tournamentTournamentLakesId
       __typename
     }
   }
@@ -674,11 +963,15 @@ export const updateTournamentLake = /* GraphQL */ `
         state
         location
         phoneNumber
+        logoUrl
+        bannerImageUrl
+        gallery
         clubID
         clubName
         userID
         createdAt
         updatedAt
+        clubTournamentsId
         owner
         __typename
       }
@@ -688,6 +981,7 @@ export const updateTournamentLake = /* GraphQL */ `
         name
         state
         description
+        images
         createdAt
         updatedAt
         __typename
@@ -699,6 +993,8 @@ export const updateTournamentLake = /* GraphQL */ `
       }
       createdAt
       updatedAt
+      lakeTournamentLakesId
+      tournamentTournamentLakesId
       __typename
     }
   }
@@ -722,11 +1018,15 @@ export const deleteTournamentLake = /* GraphQL */ `
         state
         location
         phoneNumber
+        logoUrl
+        bannerImageUrl
+        gallery
         clubID
         clubName
         userID
         createdAt
         updatedAt
+        clubTournamentsId
         owner
         __typename
       }
@@ -736,6 +1036,7 @@ export const deleteTournamentLake = /* GraphQL */ `
         name
         state
         description
+        images
         createdAt
         updatedAt
         __typename
@@ -747,6 +1048,8 @@ export const deleteTournamentLake = /* GraphQL */ `
       }
       createdAt
       updatedAt
+      lakeTournamentLakesId
+      tournamentTournamentLakesId
       __typename
     }
   }
@@ -766,6 +1069,8 @@ export const createTournamentLakeBoatRamp = /* GraphQL */ `
         allowAllRamps
         createdAt
         updatedAt
+        lakeTournamentLakesId
+        tournamentTournamentLakesId
         __typename
       }
       boatRampID
@@ -778,13 +1083,17 @@ export const createTournamentLakeBoatRamp = /* GraphQL */ `
         state
         zipCode
         description
+        images
         lakeID
         createdAt
         updatedAt
+        lakeBoatRampsId
         __typename
       }
       createdAt
       updatedAt
+      boatRampTournamentLakeBoatRampsId
+      tournamentLakeTournamentLakeBoatRampsId
       __typename
     }
   }
@@ -804,6 +1113,8 @@ export const updateTournamentLakeBoatRamp = /* GraphQL */ `
         allowAllRamps
         createdAt
         updatedAt
+        lakeTournamentLakesId
+        tournamentTournamentLakesId
         __typename
       }
       boatRampID
@@ -816,13 +1127,17 @@ export const updateTournamentLakeBoatRamp = /* GraphQL */ `
         state
         zipCode
         description
+        images
         lakeID
         createdAt
         updatedAt
+        lakeBoatRampsId
         __typename
       }
       createdAt
       updatedAt
+      boatRampTournamentLakeBoatRampsId
+      tournamentLakeTournamentLakeBoatRampsId
       __typename
     }
   }
@@ -842,6 +1157,8 @@ export const deleteTournamentLakeBoatRamp = /* GraphQL */ `
         allowAllRamps
         createdAt
         updatedAt
+        lakeTournamentLakesId
+        tournamentTournamentLakesId
         __typename
       }
       boatRampID
@@ -854,11 +1171,66 @@ export const deleteTournamentLakeBoatRamp = /* GraphQL */ `
         state
         zipCode
         description
+        images
         lakeID
         createdAt
         updatedAt
+        lakeBoatRampsId
         __typename
       }
+      createdAt
+      updatedAt
+      boatRampTournamentLakeBoatRampsId
+      tournamentLakeTournamentLakeBoatRampsId
+      __typename
+    }
+  }
+`;
+export const createEvent = /* GraphQL */ `
+  mutation CreateEvent(
+    $input: CreateEventInput!
+    $condition: ModelEventConditionInput
+  ) {
+    createEvent(input: $input, condition: $condition) {
+      id
+      name
+      description
+      date
+      imageUrl
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const updateEvent = /* GraphQL */ `
+  mutation UpdateEvent(
+    $input: UpdateEventInput!
+    $condition: ModelEventConditionInput
+  ) {
+    updateEvent(input: $input, condition: $condition) {
+      id
+      name
+      description
+      date
+      imageUrl
+      createdAt
+      updatedAt
+      __typename
+    }
+  }
+`;
+export const deleteEvent = /* GraphQL */ `
+  mutation DeleteEvent(
+    $input: DeleteEventInput!
+    $condition: ModelEventConditionInput
+  ) {
+    deleteEvent(input: $input, condition: $condition) {
+      id
+      name
+      description
+      date
+      imageUrl
       createdAt
       updatedAt
       __typename
