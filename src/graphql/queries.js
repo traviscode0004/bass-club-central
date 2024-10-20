@@ -439,6 +439,7 @@ export const getTournament = /* GraphQL */ `
       }
       clubName
       userID
+      isPublic
       tournamentLakes {
         nextToken
         __typename
@@ -475,6 +476,7 @@ export const listTournaments = /* GraphQL */ `
         clubID
         clubName
         userID
+        isPublic
         createdAt
         updatedAt
         clubTournamentsId
@@ -508,6 +510,7 @@ export const getTournamentLake = /* GraphQL */ `
         clubID
         clubName
         userID
+        isPublic
         createdAt
         updatedAt
         clubTournamentsId

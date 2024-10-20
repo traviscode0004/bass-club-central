@@ -116,7 +116,7 @@ type Tournament @model
 @auth(rules: [
   { allow: owner, operations: [create, update, delete] }, 
   { allow: groups, groups: ["Admin"], operations: [create, update, delete] }, 
-  { allow: private, operations: [read] }
+  { allow: private, operations: [read] }  # Allow all users to read tournaments
 ]) {
   id: ID!
   name: String!
@@ -131,12 +131,14 @@ type Tournament @model
   logoUrl: String
   bannerImageUrl: String
   gallery: [String]
-  clubID: ID
-  club: Club @belongsTo(fields: ["clubID"])
+  clubID: ID  # This is now optional for non-club tournaments
+  club: Club @belongsTo(fields: ["clubID"])  # Nullable association
   clubName: String
-  userID: ID!
+  userID: ID!  # User who created the tournament
+  isPublic: Boolean!  # New field to flag public tournaments
   tournamentLakes: [TournamentLake] @hasMany
 }
+
 
 type TournamentLake @model 
 @auth(rules: [

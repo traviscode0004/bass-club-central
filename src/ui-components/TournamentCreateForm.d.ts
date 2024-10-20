@@ -5,7 +5,7 @@
  **************************************************************************/
 
 import * as React from "react";
-import { GridProps, TextFieldProps } from "@aws-amplify/ui-react";
+import { GridProps, SwitchFieldProps, TextFieldProps } from "@aws-amplify/ui-react";
 export declare type EscapeHatchProps = {
     [elementHierarchy: string]: Record<string, unknown>;
 } | null;
@@ -36,6 +36,7 @@ export declare type TournamentCreateFormInputValues = {
     gallery?: string[];
     clubName?: string;
     userID?: string;
+    isPublic?: boolean;
 };
 export declare type TournamentCreateFormValidationValues = {
     name?: ValidationFunction<string>;
@@ -52,6 +53,7 @@ export declare type TournamentCreateFormValidationValues = {
     gallery?: ValidationFunction<string>;
     clubName?: ValidationFunction<string>;
     userID?: ValidationFunction<string>;
+    isPublic?: ValidationFunction<boolean>;
 };
 export declare type PrimitiveOverrideProps<T> = Partial<T> & React.DOMAttributes<HTMLDivElement>;
 export declare type TournamentCreateFormOverridesProps = {
@@ -70,6 +72,7 @@ export declare type TournamentCreateFormOverridesProps = {
     gallery?: PrimitiveOverrideProps<TextFieldProps>;
     clubName?: PrimitiveOverrideProps<TextFieldProps>;
     userID?: PrimitiveOverrideProps<TextFieldProps>;
+    isPublic?: PrimitiveOverrideProps<SwitchFieldProps>;
 } & EscapeHatchProps;
 export declare type TournamentCreateFormProps = React.PropsWithChildren<{
     overrides?: TournamentCreateFormOverridesProps | undefined | null;

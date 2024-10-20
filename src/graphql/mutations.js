@@ -771,6 +771,7 @@ export const createTournament = /* GraphQL */ `
       }
       clubName
       userID
+      isPublic
       tournamentLakes {
         nextToken
         __typename
@@ -824,6 +825,7 @@ export const updateTournament = /* GraphQL */ `
       }
       clubName
       userID
+      isPublic
       tournamentLakes {
         nextToken
         __typename
@@ -877,6 +879,7 @@ export const deleteTournament = /* GraphQL */ `
       }
       clubName
       userID
+      isPublic
       tournamentLakes {
         nextToken
         __typename
@@ -914,6 +917,7 @@ export const createTournamentLake = /* GraphQL */ `
         clubID
         clubName
         userID
+        isPublic
         createdAt
         updatedAt
         clubTournamentsId
@@ -969,6 +973,7 @@ export const updateTournamentLake = /* GraphQL */ `
         clubID
         clubName
         userID
+        isPublic
         createdAt
         updatedAt
         clubTournamentsId
@@ -1024,6 +1029,7 @@ export const deleteTournamentLake = /* GraphQL */ `
         clubID
         clubName
         userID
+        isPublic
         createdAt
         updatedAt
         clubTournamentsId
