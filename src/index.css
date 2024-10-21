@@ -269,3 +269,6 @@ button {
 .header-right .MuiIconButton-root:hover {
   color: #ff5a5f;
 }
+.white {
+  color: white;
+}

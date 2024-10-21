@@ -9,12 +9,12 @@ import * as React from "react";
 import {
   Badge,
   Button,
+  CheckboxField,
   Divider,
   Flex,
   Grid,
   Icon,
   ScrollView,
-  SwitchField,
   Text,
   TextField,
   useTheme,
@@ -203,7 +203,6 @@ export default function TournamentCreateForm(props) {
     bannerImageUrl: "",
     gallery: [],
     clubName: "",
-    userID: "",
     isPublic: false,
   };
   const [name, setName] = React.useState(initialValues.name);
@@ -225,7 +224,6 @@ export default function TournamentCreateForm(props) {
   );
   const [gallery, setGallery] = React.useState(initialValues.gallery);
   const [clubName, setClubName] = React.useState(initialValues.clubName);
-  const [userID, setUserID] = React.useState(initialValues.userID);
   const [isPublic, setIsPublic] = React.useState(initialValues.isPublic);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
@@ -243,7 +241,6 @@ export default function TournamentCreateForm(props) {
     setGallery(initialValues.gallery);
     setCurrentGalleryValue("");
     setClubName(initialValues.clubName);
-    setUserID(initialValues.userID);
     setIsPublic(initialValues.isPublic);
     setErrors({});
   };
@@ -263,7 +260,6 @@ export default function TournamentCreateForm(props) {
     bannerImageUrl: [],
     gallery: [],
     clubName: [],
-    userID: [{ type: "Required" }],
     isPublic: [{ type: "Required" }],
   };
   const runValidationTasks = async (
@@ -305,7 +301,6 @@ export default function TournamentCreateForm(props) {
           bannerImageUrl,
           gallery,
           clubName,
-          userID,
           isPublic,
         };
         const validationResponses = await Promise.all(
@@ -382,7 +377,6 @@ export default function TournamentCreateForm(props) {
               bannerImageUrl,
               gallery,
               clubName,
-              userID,
               isPublic,
             };
             const result = onChange(modelFields);
@@ -421,7 +415,6 @@ export default function TournamentCreateForm(props) {
               bannerImageUrl,
               gallery,
               clubName,
-              userID,
               isPublic,
             };
             const result = onChange(modelFields);
@@ -460,7 +453,6 @@ export default function TournamentCreateForm(props) {
               bannerImageUrl,
               gallery,
               clubName,
-              userID,
               isPublic,
             };
             const result = onChange(modelFields);
@@ -499,7 +491,6 @@ export default function TournamentCreateForm(props) {
               bannerImageUrl,
               gallery,
               clubName,
-              userID,
               isPublic,
             };
             const result = onChange(modelFields);
@@ -537,7 +528,6 @@ export default function TournamentCreateForm(props) {
               bannerImageUrl,
               gallery,
               clubName,
-              userID,
               isPublic,
             };
             const result = onChange(modelFields);
@@ -579,7 +569,6 @@ export default function TournamentCreateForm(props) {
               bannerImageUrl,
               gallery,
               clubName,
-              userID,
               isPublic,
             };
             const result = onChange(modelFields);
@@ -617,7 +606,6 @@ export default function TournamentCreateForm(props) {
               bannerImageUrl,
               gallery,
               clubName,
-              userID,
               isPublic,
             };
             const result = onChange(modelFields);
@@ -655,7 +643,6 @@ export default function TournamentCreateForm(props) {
               bannerImageUrl,
               gallery,
               clubName,
-              userID,
               isPublic,
             };
             const result = onChange(modelFields);
@@ -693,7 +680,6 @@ export default function TournamentCreateForm(props) {
               bannerImageUrl,
               gallery,
               clubName,
-              userID,
               isPublic,
             };
             const result = onChange(modelFields);
@@ -731,7 +717,6 @@ export default function TournamentCreateForm(props) {
               bannerImageUrl,
               gallery,
               clubName,
-              userID,
               isPublic,
             };
             const result = onChange(modelFields);
@@ -769,7 +754,6 @@ export default function TournamentCreateForm(props) {
               bannerImageUrl: value,
               gallery,
               clubName,
-              userID,
               isPublic,
             };
             const result = onChange(modelFields);
@@ -803,7 +787,6 @@ export default function TournamentCreateForm(props) {
               bannerImageUrl,
               gallery: values,
               clubName,
-              userID,
               isPublic,
             };
             const result = onChange(modelFields);
@@ -866,7 +849,6 @@ export default function TournamentCreateForm(props) {
               bannerImageUrl,
               gallery,
               clubName: value,
-              userID,
               isPublic,
             };
             const result = onChange(modelFields);
@@ -882,49 +864,12 @@ export default function TournamentCreateForm(props) {
         hasError={errors.clubName?.hasError}
         {...getOverrideProps(overrides, "clubName")}
       ></TextField>
-      <TextField
-        label="User id"
-        isRequired={true}
-        isReadOnly={false}
-        value={userID}
-        onChange={(e) => {
-          let { value } = e.target;
-          if (onChange) {
-            const modelFields = {
-              name,
-              date,
-              startTime,
-              endTime,
-              description,
-              cost,
-              state,
-              location,
-              phoneNumber,
-              logoUrl,
-              bannerImageUrl,
-              gallery,
-              clubName,
-              userID: value,
-              isPublic,
-            };
-            const result = onChange(modelFields);
-            value = result?.userID ?? value;
-          }
-          if (errors.userID?.hasError) {
-            runValidationTasks("userID", value);
-          }
-          setUserID(value);
-        }}
-        onBlur={() => runValidationTasks("userID", userID)}
-        errorMessage={errors.userID?.errorMessage}
-        hasError={errors.userID?.hasError}
-        {...getOverrideProps(overrides, "userID")}
-      ></TextField>
-      <SwitchField
-        label="Is public"
-        defaultChecked={false}
+      <CheckboxField
+        label="Open to the public"
+        name="isPublic"
+        value="isPublic"
         isDisabled={false}
-        isChecked={isPublic}
+        checked={isPublic}
         onChange={(e) => {
           let value = e.target.checked;
           if (onChange) {
@@ -942,7 +887,6 @@ export default function TournamentCreateForm(props) {
               bannerImageUrl,
               gallery,
               clubName,
-              userID,
               isPublic: value,
             };
             const result = onChange(modelFields);
@@ -957,7 +901,7 @@ export default function TournamentCreateForm(props) {
         errorMessage={errors.isPublic?.errorMessage}
         hasError={errors.isPublic?.hasError}
         {...getOverrideProps(overrides, "isPublic")}
-      ></SwitchField>
+      ></CheckboxField>
       <Flex
         justifyContent="space-between"
         {...getOverrideProps(overrides, "CTAFlex")}

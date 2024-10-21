@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Menu, MenuItem, Button, Box } from '@mui/material';
+import { Menu, MenuItem, Button, Box, Typography } from '@mui/material';
 import styles from './Navigation.module.scss';
 
 function Navigation() {
@@ -21,41 +21,28 @@ function Navigation() {
     setTournamentsAnchorEl(null);
   };
   return (
-    <Box sx={{ display: { xs: 'none', md: 'flex' }, ml: 'auto' }}>
-          <Button component={Link} to="/" className={styles.white}>
-            Home
-          </Button>
-          <Button
-            className={styles.white}
-            aria-controls="tournaments-menu"
-            aria-haspopup="true"
-            onClick={handleTournamentsMenuToggle}
-          >
-            Tournaments
-          </Button>
-          <Menu
-            id="tournaments-menu"
-            anchorEl={tournamentsAnchorEl}
-            open={Boolean(tournamentsAnchorEl)}
-            onClose={handleClose}
-          >
-            <MenuItem component={Link} to="/upcoming-tournaments" onClick={handleClose}>
-              Upcoming Tournaments
-            </MenuItem>
-            <MenuItem component={Link} to="/past-tournaments" onClick={handleClose}>
-              Past Tournaments
-            </MenuItem>
-          </Menu>
-          <Button component={Link} to="/clubs" className={styles.white}>
-            Clubs
-          </Button>
-          <Button component={Link} to="/schedule" className={styles.white}>
-            Schedule
-          </Button>
-          <Button component={Link} to="/login" className={styles.white}>
-            Login
-          </Button>
-        </Box>
+    <div className='header-nav'>
+    <Link to='/' underline='none'>
+      <Typography variant='body1' className='nav-link'>
+        Home
+      </Typography>
+    </Link>
+    <Link to="/clubs" underline='none'>
+      <Typography variant='body1' className='nav-link'>
+      Clubs
+      </Typography>
+    </Link>
+    <Link to="/schedule" underline='none'>
+      <Typography variant='body1' className='nav-link'>
+      Schedule
+      </Typography>
+    </Link>
+    <Link to="/login" underline='none'>
+      <Typography variant='body1' className='nav-link'>
+      Login
+      </Typography>
+    </Link>
+  </div>
   );
 }
 

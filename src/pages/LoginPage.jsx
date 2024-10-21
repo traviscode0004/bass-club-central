@@ -1,15 +1,25 @@
-// src/pages/LoginPage.jsx
-
 import React, { useState } from 'react';
 import { Container, Typography, TextField, Button, Box } from '@mui/material';
+import { signIn } from '@aws-amplify/auth'; // Import the signIn function
+import { useNavigate } from 'react-router-dom'; // Optional for navigation after login
 
 const LoginPage = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const navigate = useNavigate(); // Optional for redirect after successful login
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Implement login logic here
+    try {
+      const user = await signIn(username, password); // Call signIn directly
+      console.log('Login success:', user);
+      // Redirect to another page, e.g., navigate('/dashboard');
+      navigate('/dashboard'); // Optional: Adjust this path as needed
+    } catch (error) {
+      console.error('Login failed:', error);
+      setError('Login failed. Please check your username and password.');
+    }
   };
 
   return (
@@ -42,6 +52,11 @@ const LoginPage = () => {
               required
             />
           </Box>
+          {error && (
+            <Typography color="error" variant="body2" gutterBottom>
+              {error}
+            </Typography>
+          )}
           <Button type="submit" variant="contained" color="primary" fullWidth>
             Login
           </Button>
@@ -52,4 +67,3 @@ const LoginPage = () => {
 };
 
 export default LoginPage;
-

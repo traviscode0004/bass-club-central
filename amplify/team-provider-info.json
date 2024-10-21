@@ -17,6 +17,12 @@
       },
       "api": {
         "BassClubAPI": {}
+      },
+      "function": {
+        "cloudinary": {
+          "deploymentBucketName": "amplify-bassclubcentral-dev-81119-deployment",
+          "s3Key": "amplify-builds/cloudinary-4c4543726e543033366c-build.zip"
+        }
       }
     }
   }

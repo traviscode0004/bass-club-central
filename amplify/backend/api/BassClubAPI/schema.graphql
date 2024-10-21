@@ -9,9 +9,9 @@ type User @model
   email: String!
   phoneNumber: String
   state: String!
-  profilePictureUrl: String
-  heroImageUrl: String
-  clubs: [Membership] @hasMany  # Removed fields for seed compatibility
+  profilePictureUrl: String  # Cloudinary URL for the user's profile picture
+  heroImageUrl: String        # Cloudinary URL for a hero image
+  clubs: [Membership] @hasMany
   posts: [Post] @hasMany
   catchReports: [CatchReport] @hasMany
 }
@@ -24,7 +24,7 @@ type Post @model
   userID: ID!
   user: User @belongsTo(fields: ["userID"])
   content: String!
-  imageUrl: String
+  imageUrl: String  # Cloudinary URL for an image attached to a post
   createdAt: AWSDateTime!
 }
 
@@ -38,7 +38,7 @@ type CatchReport @model
   fishType: String!
   weight: Float
   location: String!
-  imageUrl: String
+  imageUrl: String  # Cloudinary URL for an image in a catch report
   createdAt: AWSDateTime!
 }
 
@@ -57,9 +57,9 @@ type Club @model
   description: String
   rules: String
   memberLimit: Int
-  logoUrl: String
-  additionalImages: [String]
-  bannerImageUrl: String
+  logoUrl: String  # Cloudinary URL for club logo
+  additionalImages: [String]  # Array of Cloudinary image URLs
+  bannerImageUrl: String  # Cloudinary URL for the club's banner image
   userID: ID!
   memberships: [Membership] @hasMany
   tournaments: [Tournament] @hasMany
@@ -78,7 +78,7 @@ type Membership @model
   club: Club @belongsTo(fields: ["clubID"])
   dateJoined: AWSDate!
   phoneNumber: String
-  clubProfilePictureUrl: String
+  clubProfilePictureUrl: String  # Cloudinary URL for the member's club profile picture
 }
 
 type Lake @model 
@@ -89,7 +89,7 @@ type Lake @model
   name: String!
   state: String!
   description: String
-  images: [String]
+  images: [String]  # Array of Cloudinary image URLs for lake images
   boatRamps: [BoatRamp] @hasMany
   tournamentLakes: [TournamentLake] @hasMany
 }
@@ -106,7 +106,7 @@ type BoatRamp @model
   state: String!
   zipCode: String!
   description: String!
-  images: [String]
+  images: [String]  # Array of Cloudinary image URLs for boat ramp images
   lakeID: ID!
   lake: Lake @belongsTo(fields: ["lakeID"])
   tournamentLakeBoatRamps: [TournamentLakeBoatRamp] @hasMany
@@ -126,19 +126,20 @@ type Tournament @model
   description: String
   cost: Float
   state: String!
-  location: String!
-  phoneNumber: String
-  logoUrl: String
-  bannerImageUrl: String
-  gallery: [String]
+  logoUrl: String  # Cloudinary URL for the tournament logo
+  bannerImageUrl: String  # Cloudinary URL for the tournament banner image
+  gallery: [String]  # Array of Cloudinary image URLs for tournament gallery images
   clubID: ID  # This is now optional for non-club tournaments
   club: Club @belongsTo(fields: ["clubID"])  # Nullable association
   clubName: String
   userID: ID!  # User who created the tournament
   isPublic: Boolean!  # New field to flag public tournaments
   tournamentLakes: [TournamentLake] @hasMany
+  headquartersAddress: String   # Address for headquarters (optional)
+  headquartersCity: String       # City for headquarters (optional)
+  headquartersState: String      # State for headquarters (optional)
+  headquartersZip: String        # Zip code for headquarters (optional)
 }
-
 
 type TournamentLake @model 
 @auth(rules: [
@@ -151,6 +152,7 @@ type TournamentLake @model
   lake: Lake @belongsTo(fields: ["lakeID"])
   allowAllRamps: Boolean!
   tournamentLakeBoatRamps: [TournamentLakeBoatRamp] @hasMany
+  days: [TournamentDay] @hasMany # Multiple dates with associated lakes or ramps
 }
 
 type TournamentLakeBoatRamp @model 
@@ -164,6 +166,16 @@ type TournamentLakeBoatRamp @model
   boatRamp: BoatRamp @belongsTo(fields: ["boatRampID"])
 }
 
+type TournamentDay @model 
+@auth(rules: [
+  { allow: private }
+]) {
+  id: ID!
+  date: AWSDate!
+  lakes: [Lake] @hasMany   # Different lakes on different days
+  boatRamps: [BoatRamp] @hasMany  # Different ramps on different days
+}
+
 type Event @model 
 @auth(rules: [
   { allow: private }
@@ -172,6 +184,19 @@ type Event @model
   name: String!
   description: String
   date: AWSDate!
-  imageUrl: String
+  imageUrl: String  # Cloudinary URL for event image
   createdAt: AWSDateTime!
 }
+
+type Mutation {
+  uploadImage(input: UploadImageInput!): UploadImageResponse
+}
+
+input UploadImageInput {
+  fileContent: String!  # Base64-encoded image data
+}
+
+type UploadImageResponse {
+  url: String!  # The URL of the uploaded image
+}
+

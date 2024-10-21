@@ -5,12 +5,13 @@ import HeroSection from '../components/HeroSection/HeroSection';
 import SearchBar from '../components/SearchBar/SearchBar';
 import IconBar from '../components/IconBar/IconBar';
 import TournamentsList from '../components/TournamentList/TournamentList';
+import LakesList from '../components/LakeList/LakeList';
 
 const HomePage = () => (
   <Box sx={{ bgcolor: 'white', py: 5, boxShadow: 3 }}>
     <SearchBar />
     <IconBar />
-    <TournamentsList />
+    <LakesList />
   </Box>
 );
 
